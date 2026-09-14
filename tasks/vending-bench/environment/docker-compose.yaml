@@ -1,0 +1,47 @@
+# Merged on top of Harbor's base compose. Harbor configures the `main`
+# service (build context, image, command, volumes, resource limits); we only
+# add the simulation server and make `main` wait for it.
+services:
+  main:
+    depends_on:
+      sim-server:
+        condition: service_healthy
+
+  sim-server:
+    build:
+      context: ./sim-server
+    expose:
+      - "8000"
+    volumes:
+      # Drop a variant config next to the task and point VENDING_CONFIG at
+      # /config/<name>.toml to run a different world with the same image.
+      - ./sim-server/variants:/config:ro
+    environment:
+      # The whole world lives in sim-server/vending/config.toml. These are the
+      # named shortcuts it declares in [env_overrides]; a test keeps the two
+      # lists in step. Anything not listed here is still reachable through
+      # VENDING_SET or a replacement file via VENDING_CONFIG.
+      VENDING_CONFIG: "${VENDING_CONFIG:-}"
+      VENDING_SET: "${VENDING_SET:-}"
+
+      VENDING_SEED: "${VENDING_SEED:-}"
+      VENDING_SIM_DAYS: "${VENDING_SIM_DAYS:-}"
+      VENDING_START_DATE: "${VENDING_START_DATE:-}"
+      VENDING_STARTING_BALANCE: "${VENDING_STARTING_BALANCE:-}"
+      VENDING_DAILY_FEE: "${VENDING_DAILY_FEE:-}"
+      VENDING_MAX_UNPAID_DAYS: "${VENDING_MAX_UNPAID_DAYS:-}"
+      VENDING_SLOT_CAP_SMALL: "${VENDING_SLOT_CAP_SMALL:-}"
+      VENDING_SLOT_CAP_LARGE: "${VENDING_SLOT_CAP_LARGE:-}"
+      VENDING_CARD_SHARE: "${VENDING_CARD_SHARE:-}"
+      VENDING_DEMAND_NOISE_SD: "${VENDING_DEMAND_NOISE_SD:-}"
+      VENDING_COMPLAINT_CHANCE: "${VENDING_COMPLAINT_CHANCE:-}"
+      VENDING_SUPPLIER_LLM: "${VENDING_SUPPLIER_LLM:-}"
+      VENDING_PORT: "${VENDING_PORT:-}"
+      VENDING_STATE_PATH: "${VENDING_STATE_PATH:-}"
+      VENDING_RESUME: "${VENDING_RESUME:-}"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/healthz"]
+      interval: 2s
+      timeout: 5s
+      retries: 20
+      start_period: 5s

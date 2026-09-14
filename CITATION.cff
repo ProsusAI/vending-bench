@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+title: "Prosus Vending Bench"
+message: "If you use this benchmark, please cite it and the Harbor framework it runs on."
+type: software
+authors:
+  - name: "Prosus AI"
+    website: "https://github.com/ProsusAI"
+repository-code: "https://github.com/ProsusAI/vending-bench"
+abstract: >-
+  A long-horizon agentic benchmark in which a model operates six vending
+  machines across three simulated Amsterdam locations, sourcing stock,
+  negotiating with suppliers, pricing by location and marketing without
+  spamming. Reward is the nonnegative final bank balance after a completed run.
+  The default challenge is 30 simulated days; a 365-day variant is included.
+keywords:
+  - long-horizon
+  - agentic
+  - benchmark
+  - tool-use
+  - vending-bench
+license: Apache-2.0
+year: 2026
+references:
+  - type: software
+    title: "Harbor: A framework for evaluating and optimizing agents and models in container environments"
+    authors:
+      - name: "Harbor Framework Team"
+    year: 2026
+    doi: "10.5281/zenodo.20953922"
+    url: "https://doi.org/10.5281/zenodo.20953922"
+    repository-code: "https://github.com/harbor-framework/harbor"
+    license: Apache-2.0

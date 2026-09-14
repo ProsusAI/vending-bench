@@ -1,0 +1,49 @@
+schema_version = "1.1"
+
+[task]
+name = "prosus/prosus-vending-bench"
+version = "3.0.0"
+description = """
+Run six snack and drinks machines across three Amsterdam locations for 30
+simulated days. Start with EUR 1500; source stock, discover weekly offers, price
+by location and market without spamming. Only completed runs score their final
+bank balance. Set VENDING_CONFIG=/config/full-year.toml for the 365-day challenge.
+"""
+authors = []
+keywords = ["long-horizon", "agentic", "business", "coherence", "vending-bench"]
+
+[metadata]
+difficulty = "hard"
+category = "long-horizon-agency"
+tags = ["long-horizon", "tool-use", "negotiation", "economics"]
+reward_kind = "continuous"
+reward_units = "EUR"
+reward_note = "Reward is the nonnegative final bank balance after completion; incomplete or bankrupt runs score zero."
+
+# Thirty simulated days is hundreds of tool calls and a simulated year is
+# thousands, so the agent gets real wall clock. This ceiling is sized for the
+# full-year variant; the default 30-day task finishes well inside it.
+[verifier]
+timeout_sec = 900.0
+
+[agent]
+timeout_sec = 43200.0
+
+[environment]
+build_timeout_sec = 900.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+
+[[environment.mcp_servers]]
+name = "vending"
+transport = "streamable-http"
+url = "http://sim-server:8000/mcp"
+args = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

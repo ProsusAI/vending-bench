@@ -1,0 +1,514 @@
+{
+  "_generated_by": "scripts/sync_config.py \u2014 do not edit by hand",
+  "catalog": {
+    "choco-bar-100g": {
+      "base_sales": 6.0,
+      "elasticity": -1.1,
+      "name": "Milk Chocolate Bar 100g",
+      "reference_price": 2.2,
+      "size": "small",
+      "true_cost": 0.66
+    },
+    "cola-500ml": {
+      "base_sales": 8.5,
+      "elasticity": -1.3,
+      "name": "Cola 500ml",
+      "reference_price": 2.4,
+      "size": "large",
+      "true_cost": 0.62
+    },
+    "crisps-paprika-335g": {
+      "base_sales": 6.5,
+      "elasticity": -1.0,
+      "name": "Paprika Crisps family bag 335g",
+      "reference_price": 4.5,
+      "size": "large",
+      "true_cost": 1.28
+    },
+    "energy-drink-500ml": {
+      "base_sales": 9.0,
+      "elasticity": -1.2,
+      "name": "Energy Drink 500ml",
+      "reference_price": 2.8,
+      "size": "large",
+      "true_cost": 0.84
+    },
+    "gummy-bears-150g": {
+      "base_sales": 5.2,
+      "elasticity": -1.3,
+      "name": "Gummy Bears 150g",
+      "reference_price": 1.9,
+      "size": "small",
+      "true_cost": 0.47
+    },
+    "nuts-mix-75g": {
+      "base_sales": 4.4,
+      "elasticity": -1.05,
+      "name": "Salted Nut Mix 75g",
+      "reference_price": 2.4,
+      "size": "small",
+      "true_cost": 0.72
+    },
+    "oat-latte-can": {
+      "base_sales": 4.0,
+      "elasticity": -1.1,
+      "name": "Oat Latte Can 250ml",
+      "reference_price": 3.2,
+      "size": "large",
+      "true_cost": 1.02
+    },
+    "sparkling-water-500ml": {
+      "base_sales": 5.0,
+      "elasticity": -1.6,
+      "name": "Sparkling Water 500ml",
+      "reference_price": 1.8,
+      "size": "large",
+      "true_cost": 0.33
+    },
+    "stroopwafel-2pk": {
+      "base_sales": 7.5,
+      "elasticity": -1.2,
+      "name": "Stroopwafels 2-pack",
+      "reference_price": 1.8,
+      "size": "small",
+      "true_cost": 0.42
+    },
+    "tortilla-chips-300g": {
+      "base_sales": 5.4,
+      "elasticity": -1.0,
+      "name": "Tortilla Chips family bag 300g",
+      "reference_price": 4.8,
+      "size": "large",
+      "true_cost": 1.52
+    }
+  },
+  "currency": {
+    "code": "EUR",
+    "symbol": "\u20ac"
+  },
+  "ids": {
+    "complaint_prefix": "CMP-",
+    "email_digits": 4,
+    "email_prefix": "MSG-",
+    "order_prefix": "PO-"
+  },
+  "locations": {
+    "AI-HOUSE": {
+      "name": "AI House",
+      "preferences": {
+        "cold_drink": 1.25,
+        "drink": 1.0,
+        "snack": 1.05,
+        "sweet": 1.2
+      },
+      "price_sensitivity": 0.75,
+      "volume": 1.3
+    },
+    "AI-LOUNGE": {
+      "name": "AI Lounge",
+      "preferences": {
+        "cold_drink": 0.85,
+        "drink": 1.2,
+        "snack": 1.2,
+        "sweet": 0.7
+      },
+      "price_sensitivity": 1.5,
+      "volume": 0.85
+    },
+    "MAIN-LOUNGE": {
+      "name": "Main Lounge",
+      "preferences": {
+        "cold_drink": 1.0,
+        "drink": 1.1,
+        "snack": 1.1,
+        "sweet": 0.85
+      },
+      "price_sensitivity": 1.5,
+      "volume": 1.8
+    }
+  },
+  "plan": {
+    "AI-HOUSE:DRINKS:A1": "cola-500ml",
+    "AI-HOUSE:DRINKS:A2": "energy-drink-500ml",
+    "AI-HOUSE:DRINKS:A3": "sparkling-water-500ml",
+    "AI-HOUSE:DRINKS:B1": "oat-latte-can",
+    "AI-HOUSE:DRINKS:B2": "cola-500ml",
+    "AI-HOUSE:DRINKS:B3": "energy-drink-500ml",
+    "AI-HOUSE:DRINKS:C1": "sparkling-water-500ml",
+    "AI-HOUSE:DRINKS:C2": "oat-latte-can",
+    "AI-HOUSE:DRINKS:C3": "cola-500ml",
+    "AI-HOUSE:DRINKS:D1": "energy-drink-500ml",
+    "AI-HOUSE:DRINKS:D2": "sparkling-water-500ml",
+    "AI-HOUSE:DRINKS:D3": "oat-latte-can",
+    "AI-HOUSE:SNACK:A1": "stroopwafel-2pk",
+    "AI-HOUSE:SNACK:A2": "choco-bar-100g",
+    "AI-HOUSE:SNACK:A3": "nuts-mix-75g",
+    "AI-HOUSE:SNACK:B1": "gummy-bears-150g",
+    "AI-HOUSE:SNACK:B2": "stroopwafel-2pk",
+    "AI-HOUSE:SNACK:B3": "choco-bar-100g",
+    "AI-HOUSE:SNACK:C1": "crisps-paprika-335g",
+    "AI-HOUSE:SNACK:C2": "tortilla-chips-300g",
+    "AI-HOUSE:SNACK:C3": "crisps-paprika-335g",
+    "AI-HOUSE:SNACK:D1": "tortilla-chips-300g",
+    "AI-HOUSE:SNACK:D2": "crisps-paprika-335g",
+    "AI-HOUSE:SNACK:D3": "tortilla-chips-300g",
+    "AI-LOUNGE:DRINKS:A1": "cola-500ml",
+    "AI-LOUNGE:DRINKS:A2": "energy-drink-500ml",
+    "AI-LOUNGE:DRINKS:A3": "sparkling-water-500ml",
+    "AI-LOUNGE:DRINKS:B1": "oat-latte-can",
+    "AI-LOUNGE:DRINKS:B2": "cola-500ml",
+    "AI-LOUNGE:DRINKS:B3": "energy-drink-500ml",
+    "AI-LOUNGE:DRINKS:C1": "sparkling-water-500ml",
+    "AI-LOUNGE:DRINKS:C2": "oat-latte-can",
+    "AI-LOUNGE:DRINKS:C3": "cola-500ml",
+    "AI-LOUNGE:DRINKS:D1": "energy-drink-500ml",
+    "AI-LOUNGE:DRINKS:D2": "sparkling-water-500ml",
+    "AI-LOUNGE:DRINKS:D3": "oat-latte-can",
+    "AI-LOUNGE:SNACK:A1": "stroopwafel-2pk",
+    "AI-LOUNGE:SNACK:A2": "choco-bar-100g",
+    "AI-LOUNGE:SNACK:A3": "nuts-mix-75g",
+    "AI-LOUNGE:SNACK:B1": "gummy-bears-150g",
+    "AI-LOUNGE:SNACK:B2": "stroopwafel-2pk",
+    "AI-LOUNGE:SNACK:B3": "choco-bar-100g",
+    "AI-LOUNGE:SNACK:C1": "crisps-paprika-335g",
+    "AI-LOUNGE:SNACK:C2": "tortilla-chips-300g",
+    "AI-LOUNGE:SNACK:C3": "crisps-paprika-335g",
+    "AI-LOUNGE:SNACK:D1": "tortilla-chips-300g",
+    "AI-LOUNGE:SNACK:D2": "crisps-paprika-335g",
+    "AI-LOUNGE:SNACK:D3": "tortilla-chips-300g",
+    "MAIN-LOUNGE:DRINKS:A1": "cola-500ml",
+    "MAIN-LOUNGE:DRINKS:A2": "energy-drink-500ml",
+    "MAIN-LOUNGE:DRINKS:A3": "sparkling-water-500ml",
+    "MAIN-LOUNGE:DRINKS:B1": "oat-latte-can",
+    "MAIN-LOUNGE:DRINKS:B2": "cola-500ml",
+    "MAIN-LOUNGE:DRINKS:B3": "energy-drink-500ml",
+    "MAIN-LOUNGE:DRINKS:C1": "sparkling-water-500ml",
+    "MAIN-LOUNGE:DRINKS:C2": "oat-latte-can",
+    "MAIN-LOUNGE:DRINKS:C3": "cola-500ml",
+    "MAIN-LOUNGE:DRINKS:D1": "energy-drink-500ml",
+    "MAIN-LOUNGE:DRINKS:D2": "sparkling-water-500ml",
+    "MAIN-LOUNGE:DRINKS:D3": "oat-latte-can",
+    "MAIN-LOUNGE:SNACK:A1": "stroopwafel-2pk",
+    "MAIN-LOUNGE:SNACK:A2": "choco-bar-100g",
+    "MAIN-LOUNGE:SNACK:A3": "nuts-mix-75g",
+    "MAIN-LOUNGE:SNACK:B1": "gummy-bears-150g",
+    "MAIN-LOUNGE:SNACK:B2": "stroopwafel-2pk",
+    "MAIN-LOUNGE:SNACK:B3": "choco-bar-100g",
+    "MAIN-LOUNGE:SNACK:C1": "crisps-paprika-335g",
+    "MAIN-LOUNGE:SNACK:C2": "tortilla-chips-300g",
+    "MAIN-LOUNGE:SNACK:C3": "crisps-paprika-335g",
+    "MAIN-LOUNGE:SNACK:D1": "tortilla-chips-300g",
+    "MAIN-LOUNGE:SNACK:D2": "crisps-paprika-335g",
+    "MAIN-LOUNGE:SNACK:D3": "tortilla-chips-300g"
+  },
+  "sim_days": 30,
+  "slots": {
+    "AI-HOUSE:DRINKS:A1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:DRINKS:A2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:DRINKS:A3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:DRINKS:B1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:DRINKS:B2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:DRINKS:B3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:DRINKS:C1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:DRINKS:C2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:DRINKS:C3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:DRINKS:D1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:DRINKS:D2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:DRINKS:D3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:SNACK:A1": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "AI-HOUSE:SNACK:A2": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "AI-HOUSE:SNACK:A3": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "AI-HOUSE:SNACK:B1": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "AI-HOUSE:SNACK:B2": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "AI-HOUSE:SNACK:B3": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "AI-HOUSE:SNACK:C1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:SNACK:C2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:SNACK:C3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:SNACK:D1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:SNACK:D2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-HOUSE:SNACK:D3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:DRINKS:A1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:DRINKS:A2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:DRINKS:A3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:DRINKS:B1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:DRINKS:B2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:DRINKS:B3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:DRINKS:C1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:DRINKS:C2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:DRINKS:C3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:DRINKS:D1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:DRINKS:D2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:DRINKS:D3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:SNACK:A1": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "AI-LOUNGE:SNACK:A2": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "AI-LOUNGE:SNACK:A3": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "AI-LOUNGE:SNACK:B1": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "AI-LOUNGE:SNACK:B2": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "AI-LOUNGE:SNACK:B3": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "AI-LOUNGE:SNACK:C1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:SNACK:C2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:SNACK:C3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:SNACK:D1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:SNACK:D2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "AI-LOUNGE:SNACK:D3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:DRINKS:A1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:DRINKS:A2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:DRINKS:A3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:DRINKS:B1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:DRINKS:B2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:DRINKS:B3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:DRINKS:C1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:DRINKS:C2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:DRINKS:C3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:DRINKS:D1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:DRINKS:D2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:DRINKS:D3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:SNACK:A1": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "MAIN-LOUNGE:SNACK:A2": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "MAIN-LOUNGE:SNACK:A3": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "MAIN-LOUNGE:SNACK:B1": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "MAIN-LOUNGE:SNACK:B2": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "MAIN-LOUNGE:SNACK:B3": {
+      "capacity": 18,
+      "size": "small"
+    },
+    "MAIN-LOUNGE:SNACK:C1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:SNACK:C2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:SNACK:C3": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:SNACK:D1": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:SNACK:D2": {
+      "capacity": 10,
+      "size": "large"
+    },
+    "MAIN-LOUNGE:SNACK:D3": {
+      "capacity": 10,
+      "size": "large"
+    }
+  },
+  "suppliers": {
+    "drinks": "b2b@noordzeedranken.example",
+    "main": "orders@kanaal-cc.example"
+  },
+  "tuning": {
+    "cover_days": 10,
+    "first_order_budget_share": 0.85,
+    "first_order_large": 100,
+    "first_order_small": 100,
+    "lead_time_days": 12,
+    "max_restocks_per_day": 8,
+    "min_reorder_quantity": 20,
+    "min_scaled_quantity": 10,
+    "negotiation_rounds": 2,
+    "reorder_budget_share": 0.65,
+    "reorder_when_below": 40,
+    "restock_threshold": 0.45,
+    "weekday_run_rate": 0.75
+  }
+}

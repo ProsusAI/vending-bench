@@ -1,0 +1,994 @@
+# Prosus Vending Bench v2 — six machines, three sites, one shared business.
+# All economic parameters, locations, offers, and marketing rules live here.
+# Intro runs use the same economy with a shorter horizon.
+
+# --- Named environment overrides ---------------------------------------------
+# variable name -> dotted path into this file. The value is coerced to the type
+# of the default it replaces. Everything listed here must also be passed through
+# in environment/docker-compose.yaml; a test enforces that.
+[env_overrides]
+VENDING_SEED               = "runtime.seed"
+VENDING_SIM_DAYS           = "horizon.sim_days"
+VENDING_START_DATE         = "horizon.start_date"
+VENDING_STARTING_BALANCE   = "capital.starting_balance"
+VENDING_DAILY_FEE          = "capital.daily_spot_fee"
+VENDING_MAX_UNPAID_DAYS    = "capital.max_unpaid_days"
+VENDING_SLOT_CAP_SMALL     = "machine.slot_capacity_small"
+VENDING_SLOT_CAP_LARGE     = "machine.slot_capacity_large"
+VENDING_CARD_SHARE         = "payments.card_share"
+VENDING_DEMAND_NOISE_SD    = "demand.noise_sd"
+VENDING_COMPLAINT_CHANCE   = "complaints.base_chance"
+VENDING_SUPPLIER_LLM       = "runtime.supplier_llm"
+VENDING_PORT               = "runtime.port"
+VENDING_STATE_PATH         = "runtime.state_path"
+VENDING_RESUME             = "runtime.resume"
+
+
+# --- Server runtime ----------------------------------------------------------
+[runtime]
+seed = 1                       # fixes weather, delivery delays, complaints
+state_path = "/state/state.json"
+port = 8000
+resume = "1"                   # "1" resumes an existing state file on restart
+supplier_llm = "0"             # "1" lets an installed backend rewrite supplier prose
+server_name = "prosus-vending-bench"
+
+
+# --- Money -------------------------------------------------------------------
+[currency]
+code = "EUR"
+symbol = "€"
+
+
+# --- Horizon -----------------------------------------------------------------
+[horizon]
+# The default challenge is 30 days. For the full-year challenge point
+# VENDING_CONFIG at variants/full-year.toml (or set VENDING_SIM_DAYS=365).
+sim_days = 30
+start_date = "2026-01-05"      # a Monday
+
+
+# --- Capital and fixed costs -------------------------------------------------
+[capital]
+starting_balance = 1500.00
+daily_spot_fee = 12.00
+max_unpaid_days = 10           # terminated after MORE than this many in a row
+
+# There is no compute charge in the economy. What the model costs to run is not
+# part of the benchmark: survival means the business turns a profit. Real LLM
+# spend is measured by the runner and reported next to the score, so a result
+# carries both a business figure and a figure after LLM cost.
+
+
+# --- The machine -------------------------------------------------------------
+# Four rows of three slots. Rows A and B take small items, rows C and D take
+# large items, as in the original paper.
+[machine]
+rows = ["A", "B", "C", "D"]
+slots_per_row = 3
+small_rows = ["A", "B"]
+large_rows = ["C", "D"]
+slot_capacity_small = 18
+slot_capacity_large = 10
+
+
+# --- Clock -------------------------------------------------------------------
+# The simulated day is 24 hours long, but the business only runs during human
+# working hours. Each tool call moves the clock forward: a price lookup is
+# cheap, a trip out to a machine is not, and there are only eight hours of them.
+[clock]
+day_start_hour = 9             # 09:00, the working day starts
+day_end_hour = 17              # 17:00, the working day ends
+default_tool_minutes = 25
+
+[clock.tool_minutes]
+# cheap reads
+check_offers = 25
+order_goods = 25
+run_marketing = 25
+get_marketing_report = 5
+get_status = 5
+read_notes = 5
+list_reminders = 5
+list_emails = 5
+read_email = 5
+write_note = 5
+set_reminder = 5
+get_machine_inventory = 25
+get_storage_inventory = 25
+get_sales_report = 25
+# communication and research
+send_email = 25
+search_web = 25
+send_payment = 25
+# physical work at the machine (a trip across town)
+set_price = 5
+restock_machine = 45           # filling a machine is the expensive errand
+swap_item = 30                 # replace or swap the product in one slot
+clear_slot = 30                # empty a slot back into the depot
+
+
+# --- Payments ----------------------------------------------------------------
+[payments]
+card_share = 0.72              # fraction of sales paid by card
+card_settlement_days = 1       # card money lands in the balance the next day
+                               # Cash takings bank the same night. There is no
+                               # cash box to empty and no cap on one.
+
+
+# --- Demand model ------------------------------------------------------------
+# Sales impact factor = 1 + elasticity * pct_diff_from_reference_price,
+# clamped to [0, max_price_impact]. See demand.py.
+[demand]
+max_price_impact = 4.0
+noise_sd = 0.18                # sd of the multiplicative gaussian noise
+noise_mean = 1.0
+
+# Variety: a machine offering roughly this many distinct products sells best.
+# Fewer options loses cross-sell, more options splits the same footfall.
+optimal_distinct_products = 6
+max_choice_penalty = 0.50      # capped at a 50% reduction, per the paper
+choice_shortfall_slope = 0.55  # penalty per unit of relative shortfall
+choice_excess_slope = 0.045    # penalty per extra distinct product
+
+# Office building on the Zuidas: weekdays carry the business, weekends are dead.
+# Keys are Python weekday numbers, Monday = 0.
+[demand.day_of_week_multiplier]
+"0" = 1.00                     # Monday
+"1" = 1.15
+"2" = 1.10
+"3" = 1.15
+"4" = 0.95                     # Friday, people leave early
+"5" = 0.30                     # Saturday
+"6" = 0.25                     # Sunday
+
+# Dutch office seasonality: the summer holidays and Christmas empty the building.
+[demand.month_multiplier]
+"1" = 0.95
+"2" = 0.95
+"3" = 1.00
+"4" = 1.05
+"5" = 1.05
+"6" = 1.15
+"7" = 0.80
+"8" = 0.65
+"9" = 1.15
+"10" = 1.10
+"11" = 1.05
+"12" = 0.85
+
+# Days where the office is essentially closed.
+[[demand.holidays]]
+name = "Nieuwjaarsdag"
+month = 1
+day = 1
+multiplier = 0.05
+[[demand.holidays]]
+name = "Koningsdag"
+month = 4
+day = 27
+multiplier = 0.05
+[[demand.holidays]]
+name = "Bevrijdingsdag"
+month = 5
+day = 5
+multiplier = 0.35
+[[demand.holidays]]
+name = "Kerstavond"
+month = 12
+day = 24
+multiplier = 0.30
+[[demand.holidays]]
+name = "Eerste Kerstdag"
+month = 12
+day = 25
+multiplier = 0.05
+[[demand.holidays]]
+name = "Tweede Kerstdag"
+month = 12
+day = 26
+multiplier = 0.05
+[[demand.holidays]]
+name = "Oudjaarsdag"
+month = 12
+day = 31
+multiplier = 0.25
+
+
+# --- Weather -----------------------------------------------------------------
+[weather]
+types = ["sunny", "cloudy", "rainy", "cold", "hot"]
+fallback = "cloudy"            # used on day 1 and if a month table underfills
+
+# How each product category responds to the weather. Every category used by a
+# product in [[products]] must appear in each row.
+[weather.category_multiplier.sunny]
+drink = 1.20
+cold_drink = 1.35
+snack = 1.05
+sweet = 1.00
+rain_gear = 0.55
+specialty = 1.00
+[weather.category_multiplier.cloudy]
+drink = 1.00
+cold_drink = 1.00
+snack = 1.00
+sweet = 1.05
+rain_gear = 0.90
+specialty = 1.00
+[weather.category_multiplier.rainy]
+drink = 0.95
+cold_drink = 0.80
+snack = 1.10
+sweet = 1.15
+rain_gear = 3.20
+specialty = 1.00
+[weather.category_multiplier.cold]
+drink = 0.90
+cold_drink = 0.65
+snack = 1.10
+sweet = 1.25
+rain_gear = 1.30
+specialty = 1.00
+[weather.category_multiplier.hot]
+drink = 1.35
+cold_drink = 1.75
+snack = 0.90
+sweet = 0.80
+rain_gear = 0.40
+specialty = 1.00
+
+# Seasonal weather probabilities, roughly Amsterdam. Each month must sum to 1.
+[weather.by_month]
+"1"  = { cold = 0.50, rainy = 0.30, cloudy = 0.17, sunny = 0.03, hot = 0.00 }
+"2"  = { cold = 0.45, rainy = 0.28, cloudy = 0.22, sunny = 0.05, hot = 0.00 }
+"3"  = { cold = 0.30, rainy = 0.28, cloudy = 0.27, sunny = 0.15, hot = 0.00 }
+"4"  = { cold = 0.15, rainy = 0.25, cloudy = 0.30, sunny = 0.28, hot = 0.02 }
+"5"  = { cold = 0.05, rainy = 0.22, cloudy = 0.28, sunny = 0.40, hot = 0.05 }
+"6"  = { cold = 0.02, rainy = 0.20, cloudy = 0.25, sunny = 0.43, hot = 0.10 }
+"7"  = { cold = 0.00, rainy = 0.20, cloudy = 0.22, sunny = 0.43, hot = 0.15 }
+"8"  = { cold = 0.00, rainy = 0.20, cloudy = 0.23, sunny = 0.42, hot = 0.15 }
+"9"  = { cold = 0.05, rainy = 0.25, cloudy = 0.28, sunny = 0.37, hot = 0.05 }
+"10" = { cold = 0.20, rainy = 0.30, cloudy = 0.28, sunny = 0.21, hot = 0.01 }
+"11" = { cold = 0.38, rainy = 0.32, cloudy = 0.23, sunny = 0.07, hot = 0.00 }
+"12" = { cold = 0.48, rainy = 0.30, cloudy = 0.19, sunny = 0.03, hot = 0.00 }
+
+
+# --- Reputation --------------------------------------------------------------
+# Ignoring customer complaints costs footfall.
+#
+#     target = 1.0 - hit_per_open_complaint * open_complaints   (floored)
+#
+# so one unresolved complaint settles at 0.96 rather than dragging the machine
+# all the way down. Reaching the floor takes eight of them. Damage lands faster
+# than it heals, which is what makes prompt refunds worth the money.
+[reputation]
+start = 1.0
+ceiling = 1.0
+floor = 0.70
+hit_per_open_complaint = 0.04
+recovery_per_day = 0.02        # how fast it climbs back toward target
+decay_per_day = 0.05           # how fast it falls toward a worse target
+refund_bonus = 0.05            # immediate credit for settling a complaint
+round_digits = 4
+
+
+# --- Customer complaints -----------------------------------------------------
+[complaints]
+base_chance = 0.035            # per day, before the volume scaling below
+volume_divisor = 25.0          # chance *= 1 + min(volume_cap, units/divisor)
+volume_cap = 2.0
+refund_min = 3.0
+refund_max = 25.0
+reference_prefix = "CMP-"
+reference_digits = 3
+fallback_slot = "A1"           # used if nothing is stocked
+
+customer_names = [
+  "Sanne Willems", "Tom de Boer", "Priya Nair", "Lars Jansen",
+  "Fatima El Amrani", "Daan Smit", "Chloe Martin",
+]
+email_domain = "example.com"   # address is <firstname>@<domain>
+
+# Appended to every complaint. {ref}, {amount}, {name} are substituted.
+demand_footer = """
+
+
+Refund reference: {ref}
+Amount owed: {amount} — send it with send_payment using reference {ref}. Anything less and I will keep complaining.
+
+{name}"""
+
+# {amount} and {slot} are substituted.
+[[complaints.templates]]
+subject = "Machine ate my money"
+body = "I paid {amount} at your machine this morning and nothing came out. Slot {slot}. I want my money back."
+[[complaints.templates]]
+subject = "Out of date stock"
+body = "The item I bought from slot {slot} was past its date. I would like a refund of {amount}."
+[[complaints.templates]]
+subject = "Wrong item dispensed"
+body = "I selected slot {slot} and got something else entirely. Please refund {amount}."
+[[complaints.templates]]
+subject = "Double charged"
+body = "My card was charged twice at your machine. Please return {amount}."
+
+# --- Orders and deliveries ---------------------------------------------------
+[orders]
+payment_window_days = 14       # unpaid proforma invoices expire
+id_prefix = "PO-"
+id_start = 1001
+delay_extra_days_min = 2       # added when a supplier's delay_chance fires
+delay_extra_days_max = 9
+short_ship_fraction_min = 0.45 # bait-and-switch suppliers ship this share
+short_ship_fraction_max = 0.75
+overpayment_refunded_by = ["straight", "flaky"]   # other personas keep it
+
+
+# --- Negotiation -------------------------------------------------------------
+# Concession approaches the supplier's floor asymptotically, so persistence
+# pays but never for free. Volume buys a little extra on top.
+[negotiation]
+rounds_to_floor = 5            # rounds of pushback before "that is the floor"
+volume_bonus_cap = 0.22
+volume_bonus_coefficient = 0.075
+volume_reference_quantity = 20.0
+default_products_quoted = 5    # when a negotiation names no product
+catalog_preview_count = 6      # products listed in a "we could not match" reply
+
+# Fraction of the remaining gap conceded per round, by persona.
+[negotiation.persona_pace]
+shark = 0.30
+haggler = 0.55
+straight = 0.75
+flaky = 0.70
+default = 0.55
+
+
+# --- Email parsing -----------------------------------------------------------
+[mail]
+id_prefix = "MSG-"
+id_digits = 4
+list_limit_max = 100           # hard cap on list_emails(limit=...)
+list_limit_default = 20
+agent_display_name = "Vending Operator"
+
+# Words stripped before matching a product phrase.
+stop_words = [
+  "of", "the", "a", "an", "and", "please", "your", "our", "some", "more",
+  "units", "unit", "pcs", "pieces", "bags", "cans", "bars", "packs", "boxes",
+  "cases", "tins", "x", "each", "per", "at", "for", "eur", "euro", "euros",
+]
+
+# Fuzzy product matching in the agent's free text.
+[mail.matching]
+threshold = 0.42               # below this, the phrase matches nothing
+token_overlap_weight = 0.75
+sequence_ratio_weight = 0.45
+min_name_length = 3
+max_line_quantity = 20000
+
+# Intent classification. Order matters: the first list that scores highest wins
+# ties by [mail.intent_rank].
+[mail.intent_patterns]
+# "I want to order 40 x cola" is an order, not an inquiry, even though it
+# contains "want" — so order patterns are listed first.
+order = [
+  "\\bplace (?:an|the|this) order\\b", "\\bpurchase order\\b",
+  "\\bwe(?:'d| would) like to order\\b", "\\bi(?:'d| would) like to order\\b",
+  "\\bplease (?:send|ship|deliver)\\b", "\\border\\b", "\\bbuy\\b",
+  "\\bpurchase\\b", "\\bproforma\\b", "\\binvoice me\\b",
+]
+negotiate = [
+  "\\bdiscount\\b", "\\bbetter price\\b", "\\blower\\b", "\\bcheaper\\b",
+  "\\bbest (?:you can do|price|offer)\\b", "\\bmatch\\b", "\\bbeat\\b",
+  "\\bnegotiat", "\\btoo expensive\\b", "\\breduce\\b", "\\bbudget\\b",
+  "\\bcome down\\b", "\\bmeet me\\b", "\\bhaggl", "\\bper unit.*\\?\\b",
+]
+chase = [
+  "\\bwhere is\\b", "\\bnot (?:yet )?arriv", "\\bhasn't arriv",
+  "\\bhas not arriv", "\\bdelay", "\\bstatus of\\b", "\\bstill waiting\\b",
+  "\\btracking\\b", "\\bchas(?:e|ing)\\b", "\\bfollow(?:ing)? up\\b",
+  "\\bnever (?:arrived|received)\\b",
+]
+inquiry = [
+  "\\bwhat do you\\b", "\\bcatalog", "\\bprice list\\b", "\\bpricelist\\b",
+  "\\bassortment\\b", "\\bdo you (?:have|carry|stock|sell|offer)\\b",
+  "\\bquote\\b", "\\bquotation\\b", "\\binterested in\\b",
+  "\\bcould you send\\b", "\\bwhat.*(?:products|prices|available)\\b",
+  "\\brange\\b", "\\bminimum order\\b",
+]
+
+[mail.intent_rank]
+order = 4
+negotiate = 3
+chase = 2
+inquiry = 1
+
+[mail.quantity_patterns]
+# Named groups `qty` and `name` are required.
+patterns = [
+  "(?P<qty>\\d{1,5})\\s*(?:x|\\*|\\u00d7)\\s*(?P<name>.+)$",
+  "(?P<qty>\\d{1,5})\\s*(?:units?|pcs?|pieces?|bags?|cans?|bars?|packs?|boxes?|cases?|tins?)\\s*(?:of\\s+)?(?P<name>.+)$",
+  "(?P<name>.+?)\\s*[:\\-\\u2013]\\s*(?P<qty>\\d{1,5})$",
+  "(?P<name>.+?)\\s*(?:x|\\*|\\u00d7)\\s*(?P<qty>\\d{1,5})$",
+  "(?P<qty>\\d{1,5})\\s+(?P<name>[A-Za-z].+)$",
+]
+# Order lines are written one per line, or run together with "and"/commas.
+segment_split = "[\\n;,]|\\band\\b|\\bplus\\b|\\balso\\b|\\s&\\s"
+# Trailing price talk on a line: "60 x cola at EUR 0.80 each".
+trailing_price = "\\s*(?:@|\\bat\\b|\\bfor\\b|\\bpriced\\b)\\s*(?:(?:\\u20ac|\\$|\\bEUR\\b)\\s*\\d+(?:[.,]\\d+)?|\\d+[.,]\\d{1,2})\\s*(?:each|per\\s+unit|/\\s*unit|apiece)?.*$"
+bullet = "^\\s*(?:[-*\\u2022\\u2013]|\\d+[.)])\\s+"
+# Splits a sentence when looking for products mentioned without a quantity.
+mention_split = "[\\n;,.?!]|\\band\\b|\\bplus\\b"
+
+
+# --- Supplier voices ---------------------------------------------------------
+[personas.straight]
+signoff = "Met vriendelijke groet,\n{contact}\n{company}"
+negotiation_openers = [
+  "We do not have much room on these, but here is a small gesture:",
+  "Our margins are thin, but I can shave a little off:",
+]
+chase_reply = "Apologies for the wait. I have checked with the warehouse and your order is on the van. It will reach the depot shortly."
+at_floor_line = "That is genuinely the floor. Below this I am selling at a loss."
+catalog_preamble = ""
+
+[personas.haggler]
+signoff = "Groeten,\n{contact}\n{company}"
+negotiation_openers = [
+  "Now we are talking. Best I can do at this volume:",
+  "You drive a hard bargain. Revised:",
+  "Fine. Final-ish price, and I am losing my bonus over this:",
+]
+chase_reply = "It is coming. We are a cash & carry, not a courier company. Give it another day or two."
+at_floor_line = "That is genuinely the floor. Below this I am selling at a loss."
+catalog_preamble = "\nThese are opening prices. Talk to me about volume."
+
+[personas.shark]
+signoff = "Best regards,\n{contact}\nSenior Account Executive | {company}"
+negotiation_openers = [
+  "Our pricing reflects the value of the managed service, but I have asked for a one-off exception:",
+  "I have escalated this to my director. She has approved the following, strictly confidential:",
+]
+chase_reply = "I have raised a ticket with our logistics partner. Please note that delivery windows are indicative and not contractual under our standard terms."
+at_floor_line = "That is our final position. Frankly, if budget is the issue, you may be better served by a discount wholesaler."
+catalog_preamble = "\nAs a Premium partner you get access to our full managed assortment. Prices below reflect our standard service tier."
+
+[personas.flaky]
+signoff = "Cheers,\n{contact}\n{company}"
+negotiation_openers = [
+  "Sure, we can look at that. New prices:",
+  "No problem, here you go:",
+]
+chase_reply = "Sorry! Bit of chaos here this week. It is on the list, I promise."
+at_floor_line = "That is genuinely the floor. Below this I am selling at a loss."
+catalog_preamble = ""
+
+
+# --- The world ---------------------------------------------------------------
+[world]
+agent_email = "agent@prosusvending.example"
+storage_address = "Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam"
+machine_address = "Prosus HQ atrium, Gustav Mahlerplein 5, 1082 MS Amsterdam"
+
+[world.senders]
+operations = { email = "operations@prosusvending.example", name = "Vending Operations" }
+postmaster = { email = "postmaster@prosusvending.example", name = "Mail delivery subsystem" }
+curator    = { email = "curator@insolventie.example",    name = "Curator (insolvency)" }
+
+
+# --- Opening inbox -----------------------------------------------------------
+# Delivered on day 1. Placeholders: {machine_address} {storage_address}
+# {slot_count} {small_rows} {large_rows} {symbol} {daily_fee} {max_unpaid_days}
+# {starting_balance} {sim_days} {currency}
+[[inbox.seed_emails]]
+sender = "operations"
+kind = "system"
+subject = "Your six machines are live"
+body = """Welcome to Prosus Vending Bench.
+
+You manage AI-LOUNGE, AI-HOUSE and MAIN-LOUNGE. Each has one snack and one drinks machine.
+There are {slot_count} slots total. Use get_machine_inventory for full slot IDs and capacities.
+Starting cash: {symbol}{starting_balance}. Network rent: {symbol}{daily_fee}/day.
+Depot: {storage_address}.
+Find supplier IDs using search_web; negotiate by email. Call check_offers for current prices.
+order_goods purchases immediately at current prices; there is no preview invoice or cancellation.
+Use prints, slack and mail through run_marketing. Moderate use helps; spam hurts traffic.
+Operate for all {sim_days} days. Incomplete runs score zero."""
+
+
+# --- search_web --------------------------------------------------------------
+[search]
+score_threshold = 0.08         # below this a supplier does not surface
+keyword_bonus = 0.5            # added when a keyword appears verbatim
+max_supplier_hits = 6
+
+[[search.articles]]
+keywords = ["vending", "machine", "popular", "sell", "best", "product",
+            "products", "profitable", "margin", "stock"]
+text = """Vending Insights NL — What actually sells in an office machine
+  Beverages move the most units; family-size crisps carry the best cash margin per slot. Office machines are dead at weekends and in August, so plan stock around the working week.
+  Variety matters, but past roughly half a dozen distinct lines you are splitting the same footfall across more slots."""
+
+[[search.articles]]
+keywords = ["price", "pricing", "elasticity", "markup", "how", "much", "charge"]
+text = """Retail Pricing Weekly — Pricing a vending slot
+  Shoppers anchor hard on the price they expect to pay. Push much above the going rate and volume falls away sharply; the cheapest lines are the most price-sensitive of all.
+  Track units per slot per day and move one price at a time."""
+
+[[search.articles]]
+keywords = ["negotiate", "negotiation", "supplier", "discount", "wholesale",
+            "cheaper", "deal", "buy"]
+text = """Procurement Basics — Getting a real wholesale price
+  First quotes are opening positions, not prices. Buyers who push back two or three times and commit to volume routinely pay far less than the list price.
+  Always get a second and third quote. Glossy 'total solution' resellers are usually the most expensive route to the same goods."""
+
+[[search.articles]]
+keywords = ["weather", "season", "seasonal", "summer", "winter", "rain", "demand"]
+text = """Footfall Monthly — Weather and office demand
+  Cold drinks spike in hot weather and collapse in the cold. Rain is the single best predictor of umbrella sales. Dutch offices empty out in July and August and again over Christmas."""
+
+
+# --- Reporting ---------------------------------------------------------------
+[reports]
+sales_log_max_days = 400       # state keeps at most this much daily history
+sales_report_default_days = 14
+sales_report_max_days = 120
+
+
+# --- Reference solution ------------------------------------------------------
+# The scripted operator in solution/reference_bot.py, run by `--agent oracle`
+# and by scripts/local_run.py. It is the calibration harness rather than part
+# of the world the agent sees, but it has to stay in step with the world, so
+# its choices live here too and solution/world.json is generated from them by
+# scripts/sync_config.py.
+[solution]
+# Which lines it sells, best first. Slots of each size are shared out evenly
+# across the list, so three lines across six small slots is two slots each.
+small_lines = ["stroopwafel-2pk", "choco-bar-100g", "nuts-mix-75g"]
+large_lines = ["crisps-paprika-335g", "energy-drink-500ml", "cola-500ml"]
+
+main_supplier = "kanaal-cash-carry"      # who it negotiates with and buys from
+drinks_supplier = "noordzee-dranken"     # asked for a price list, for comparison
+negotiation_rounds = 2
+
+lead_time_days = 12          # worst-case wait, used to stop buying near the end
+cover_days = 10              # days of stock a reorder aims to hold
+reorder_when_below = 40      # units on hand that trigger a reorder
+min_reorder_quantity = 20    # do not bother ordering fewer than this
+min_scaled_quantity = 10     # floor when an unaffordable basket is scaled down
+weekday_run_rate = 0.75      # share of base_sales it expects to realise
+
+first_order_small = 100      # units per small line in the opening order
+first_order_large = 100
+first_order_budget_share = 0.85   # of the balance it will commit at once
+reorder_budget_share = 0.65
+
+restock_threshold = 0.45     # refill a slot below this share of capacity
+max_restocks_per_day = 8     # trips per day; eight working hours at 45min each
+
+
+# =============================================================================
+# Products
+#
+# Product economics use the standard shape (see NOTICE, "Prior art"): every
+# item carries a reference price, a base sales rate at that price, and a price
+# elasticity. These three numbers are fixed here rather than LLM-generated, so
+# runs are reproducible without an API key.
+#
+#   true_cost        honest wholesale unit cost. What a supplier quotes is
+#                    derived from it via their persona markup, so a
+#                    well-negotiated deal genuinely approaches cost and a naive
+#                    agent genuinely overpays.
+#   reference_price  the price shoppers expect to pay
+#   base_sales       units/day at the reference price, neutral conditions
+#   elasticity       negative; how hard volume falls when you charge more
+#   size             "small" (rows A, B) or "large" (rows C, D)
+#   category         a key of [weather.category_multiplier]
+#   shelf_life_days  omit for non-perishables
+# =============================================================================
+
+# --- Small items (rows A and B) ---
+[[products]]
+id = "stroopwafel-2pk"
+name = "Stroopwafels 2-pack"
+size = "small"
+category = "sweet"
+true_cost = 0.42
+reference_price = 1.80
+base_sales = 7.5
+elasticity = -1.20
+aliases = ["stroopwafel", "syrup waffle", "caramel waffle"]
+
+[[products]]
+id = "dropjes-100g"
+name = "Dutch Licorice Drops 100g"
+size = "small"
+category = "sweet"
+true_cost = 0.48
+reference_price = 1.90
+base_sales = 3.8
+elasticity = -1.45
+aliases = ["drop", "dropjes", "licorice", "salty licorice"]
+
+[[products]]
+id = "choco-bar-100g"
+name = "Milk Chocolate Bar 100g"
+size = "small"
+category = "sweet"
+true_cost = 0.66
+reference_price = 2.20
+base_sales = 6.0
+elasticity = -1.10
+aliases = ["chocolate", "choco bar", "candy bar"]
+
+[[products]]
+id = "protein-bar-60g"
+name = "Protein Bar 60g"
+size = "small"
+category = "snack"
+true_cost = 1.05
+reference_price = 3.20
+base_sales = 5.0
+elasticity = -0.90
+aliases = ["protein", "energy bar", "fitness bar"]
+
+[[products]]
+id = "gummy-bears-150g"
+name = "Gummy Bears 150g"
+size = "small"
+category = "sweet"
+true_cost = 0.47
+reference_price = 1.90
+base_sales = 5.2
+elasticity = -1.30
+aliases = ["gummy", "gummies", "winegums"]
+
+[[products]]
+id = "mint-tin"
+name = "Peppermint Tin"
+size = "small"
+category = "sweet"
+true_cost = 0.55
+reference_price = 2.00
+base_sales = 2.4
+elasticity = -1.55
+aliases = ["mints", "peppermint", "pepermunt"]
+
+[[products]]
+id = "nuts-mix-75g"
+name = "Salted Nut Mix 75g"
+size = "small"
+category = "snack"
+true_cost = 0.72
+reference_price = 2.40
+base_sales = 4.4
+elasticity = -1.05
+aliases = ["nuts", "peanuts", "cashews", "nut mix"]
+
+[[products]]
+id = "oatmeal-cup"
+name = "Instant Oatmeal Cup"
+size = "small"
+category = "snack"
+true_cost = 0.88
+reference_price = 2.80
+base_sales = 2.0
+elasticity = -1.15
+aliases = ["oatmeal", "porridge", "havermout"]
+
+# --- Large items (rows C and D) ---
+# The family-size crisps are this benchmark's answer to "Doritos family-size":
+# the highest-margin ordinary item, findable by an agent that reads its own
+# sales data.
+[[products]]
+id = "crisps-paprika-335g"
+name = "Paprika Crisps family bag 335g"
+size = "large"
+category = "snack"
+true_cost = 1.28
+reference_price = 4.50
+base_sales = 6.5
+elasticity = -1.00
+aliases = ["crisps", "chips", "paprika chips", "family bag"]
+
+[[products]]
+id = "tortilla-chips-300g"
+name = "Tortilla Chips family bag 300g"
+size = "large"
+category = "snack"
+true_cost = 1.52
+reference_price = 4.80
+base_sales = 5.4
+elasticity = -1.00
+aliases = ["tortilla", "nachos", "tortilla chips"]
+
+[[products]]
+id = "cola-500ml"
+name = "Cola 500ml"
+size = "large"
+category = "cold_drink"
+true_cost = 0.62
+reference_price = 2.40
+base_sales = 8.5
+elasticity = -1.30
+aliases = ["cola", "coke", "soft drink", "frisdrank"]
+
+[[products]]
+id = "energy-drink-500ml"
+name = "Energy Drink 500ml"
+size = "large"
+category = "cold_drink"
+true_cost = 0.84
+reference_price = 2.80
+base_sales = 9.0
+elasticity = -1.20
+aliases = ["energy drink", "energy"]
+
+[[products]]
+id = "sparkling-water-500ml"
+name = "Sparkling Water 500ml"
+size = "large"
+category = "cold_drink"
+true_cost = 0.33
+reference_price = 1.80
+base_sales = 5.0
+elasticity = -1.60
+aliases = ["water", "sparkling water", "bruiswater"]
+
+[[products]]
+id = "oat-latte-can"
+name = "Oat Latte Can 250ml"
+size = "large"
+category = "drink"
+true_cost = 1.02
+reference_price = 3.20
+base_sales = 4.0
+elasticity = -1.10
+aliases = ["oat latte", "iced coffee", "coffee can", "latte"]
+
+[[products]]
+id = "sandwich-cheese"
+name = "Fresh Cheese Sandwich"
+size = "large"
+category = "snack"
+true_cost = 1.35
+reference_price = 4.20
+base_sales = 3.2
+elasticity = -1.25
+aliases = ["sandwich", "broodje", "fresh sandwich"]
+shelf_life_days = 3
+
+# --- Specialty, high value ---
+# Nothing stops an agent sourcing items worth far more than typical vending
+# stock. These exist for the agent that goes looking — but note the
+# food/beverage-only machines cannot actually stock them.
+[[products]]
+id = "umbrella-compact"
+name = "Compact Umbrella"
+size = "large"
+category = "rain_gear"
+true_cost = 4.20
+reference_price = 14.00
+base_sales = 0.50
+elasticity = -1.00
+aliases = ["umbrella", "paraplu", "rain"]
+
+[[products]]
+id = "earbuds-anc"
+name = "Noise-cancelling Earbuds"
+size = "large"
+category = "specialty"
+true_cost = 21.00
+reference_price = 65.00
+base_sales = 0.35
+elasticity = -0.80
+aliases = ["earbuds", "headphones", "oordopjes"]
+
+[[products]]
+id = "phone-charger-20w"
+name = "20W USB-C Charger"
+size = "large"
+category = "specialty"
+true_cost = 6.40
+reference_price = 22.00
+base_sales = 0.55
+elasticity = -0.95
+aliases = ["charger", "usb-c", "oplader", "power adapter"]
+
+[[products]]
+id = "tungsten-cube-1kg"
+name = "Tungsten Cube 1kg"
+size = "large"
+category = "specialty"
+true_cost = 78.00
+reference_price = 250.00
+base_sales = 0.12
+elasticity = -0.60
+aliases = ["tungsten", "cube", "desk toy", "metal cube"]
+
+
+# =============================================================================
+# Suppliers
+#
+#   markup                    list price = true_cost * markup
+#   floor                     best reachable price as a fraction of list price
+#   persona                   a key of [personas]; sets the negotiation pace,
+#                             the prose, and whether overpayments come back
+#   product_groups            named bundles from [product_groups]
+#   products                  extra product ids on top of the groups
+#   delivery_days             [min, max] working days after payment clears
+#   delay_chance              probability an order is late on top of that
+#   bait_switch_chance        probability a line ships short, per line
+#   ghost_chance              probability an email is simply never answered
+#   collapse_chance_per_day   probability of going out of business, per day
+#   keywords                  what makes them findable through search_web
+# =============================================================================
+
+[product_groups]
+snack_core = [
+  "stroopwafel-2pk", "dropjes-100g", "choco-bar-100g", "gummy-bears-150g",
+  "mint-tin", "nuts-mix-75g", "crisps-paprika-335g", "tortilla-chips-300g",
+]
+drinks_core = [
+  "cola-500ml", "energy-drink-500ml", "sparkling-water-500ml", "oat-latte-can",
+]
+
+# The honest, boring, slightly expensive incumbent. Safe first order.
+[[suppliers]]
+id = "zuidas-groothandel"
+name = "Zuidas Groothandel B.V."
+email = "sales@zuidas-groothandel.example"
+contact = "Marieke de Vries"
+persona = "straight"
+blurb = "Full-range food service wholesaler serving offices in Amsterdam Zuid. Next-week delivery, no haggling culture, everything always in stock."
+product_groups = ["snack_core", "drinks_core"]
+products = ["protein-bar-60g", "oatmeal-cup"]
+markup = 1.55
+floor = 0.92
+min_order_value = 75.0
+delivery_days = [2, 4]
+delay_chance = 0.05
+keywords = ["wholesale", "groothandel", "amsterdam", "snacks", "drinks",
+            "vending", "zuidas", "supplier"]
+
+# Cheapest real prices in the game, but only if you negotiate hard.
+[[suppliers]]
+id = "kanaal-cash-carry"
+name = "Kanaal Cash & Carry"
+email = "orders@kanaal-cc.example"
+contact = "Ans Bergkamp"
+persona = "haggler"
+blurb = "No-frills cash & carry near the Westelijk Havengebied. Opening prices are theatre; every buyer is expected to push back at least twice."
+product_groups = ["snack_core", "drinks_core"]
+markup = 1.95
+floor = 0.56
+min_order_value = 120.0
+delivery_days = [3, 6]
+delay_chance = 0.12
+keywords = ["cash and carry", "cheap", "bulk", "discount", "wholesale",
+            "havengebied", "supplier", "snacks"]
+
+# Adversarial. Quotes absurd prices, and sometimes ships something else.
+[[suppliers]]
+id = "premium-vend-partners"
+name = "Premium Vending Partners"
+email = "info@premiumvend.example"
+contact = "Rick Vanderhoek"
+persona = "shark"
+blurb = "Glossy 'total vending solutions' reseller. Aggressive account managers, opaque pricing, and contracts full of surprises."
+product_groups = ["snack_core", "drinks_core"]
+products = ["sandwich-cheese"]
+markup = 3.40
+floor = 0.70
+min_order_value = 50.0
+delivery_days = [4, 9]
+delay_chance = 0.30
+bait_switch_chance = 0.28
+ghost_chance = 0.10
+keywords = ["vending", "solutions", "partner", "premium", "supplier", "service"]
+
+# Great prices, unreliable existence.
+[[suppliers]]
+id = "bakker-en-zoon"
+name = "Bakker & Zoon Distributie"
+email = "verkoop@bakkerzoon.example"
+contact = "Joost Bakker"
+persona = "flaky"
+blurb = "Third-generation family distributor. Honest prices, chaotic logistics, and a bank that is losing patience with them."
+products = ["stroopwafel-2pk", "choco-bar-100g", "crisps-paprika-335g",
+            "sandwich-cheese", "oat-latte-can", "nuts-mix-75g", "cola-500ml"]
+markup = 1.32
+floor = 0.88
+min_order_value = 60.0
+delivery_days = [3, 12]
+delay_chance = 0.35
+collapse_chance_per_day = 0.0035
+keywords = ["distributie", "family", "bakery", "fresh", "sandwich",
+            "wholesale", "supplier"]
+
+# Drinks specialist, genuinely good on beverages.
+[[suppliers]]
+id = "noordzee-dranken"
+name = "Noordzee Dranken"
+email = "b2b@noordzeedranken.example"
+contact = "Sanne Visser"
+persona = "straight"
+blurb = "Beverage-only distributor. Pallet pricing on soft drinks and energy, will not touch food."
+product_groups = ["drinks_core"]
+markup = 1.38
+floor = 0.84
+min_order_value = 90.0
+delivery_days = [2, 5]
+delay_chance = 0.08
+keywords = ["drinks", "beverage", "dranken", "cola", "energy", "water",
+            "soda", "supplier"]
+
+# Capital-hungry and labour-light: a specialty slot turns over a dozen units a
+# year rather than a thousand, so it needs real money up front and almost no
+# restocking. Roughly par with a good snack slot on profit, far cheaper in tool
+# calls — a genuine alternative strategy rather than a strictly better one.
+[[suppliers]]
+id = "gadget-import-nl"
+name = "Gadget Import NL"
+email = "trade@gadgetimport.example"
+contact = "Tim Okonkwo"
+persona = "haggler"
+blurb = "Grey-market importer of consumer electronics and desk curiosities. Will source almost anything if the margin is there."
+products = ["earbuds-anc", "phone-charger-20w", "tungsten-cube-1kg",
+            "umbrella-compact"]
+markup = 1.85
+floor = 0.62
+min_order_value = 150.0
+delivery_days = [5, 12]
+delay_chance = 0.20
+keywords = ["electronics", "gadgets", "import", "earbuds", "charger",
+            "tungsten", "high value", "umbrella", "specialty", "supplier"]
+
+# Three sites, one snack machine and one drinks machine at each.
+[locations.AI-LOUNGE]
+name = "AI Lounge"
+volume = 0.85
+price_sensitivity = 1.50
+preferences = { snack = 1.20, sweet = 0.70, drink = 1.20, cold_drink = 0.85 }
+[locations.AI-HOUSE]
+name = "AI House"
+volume = 1.30
+price_sensitivity = 0.75
+preferences = { snack = 1.05, sweet = 1.20, drink = 1.00, cold_drink = 1.25 }
+[locations.MAIN-LOUNGE]
+name = "Main Lounge"
+volume = 1.80
+price_sensitivity = 1.50
+preferences = { snack = 1.10, sweet = 0.85, drink = 1.10, cold_drink = 1.00 }
+
+[marketing]
+window_days = 7
+combined_limit = 4
+combined_penalty = 0.10
+traffic_floor = 0.50
+traffic_cap = 1.35
+[marketing.channels.prints]
+cost = 8.00
+duration_days = 7
+bonus = 0.10
+weekly_limit = 2
+fatigue = 0.12
+[marketing.channels.slack]
+cost = 1.00
+duration_days = 2
+bonus = 0.15
+weekly_limit = 2
+fatigue = 0.15
+[marketing.channels.mail]
+cost = 2.00
+duration_days = 3
+bonus = 0.18
+weekly_limit = 1
+fatigue = 0.20
+
+[offers]
+period_days = 7
+probability = 0.30
+discounts = [0.10, 0.20, 0.30]

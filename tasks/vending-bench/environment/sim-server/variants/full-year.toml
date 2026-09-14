@@ -1,0 +1,17 @@
+# Full-year challenge: the same economy and starting cash, 365 simulated days.
+#
+#   harbor run --path tasks/vending-bench --agent oracle \
+#     --env VENDING_CONFIG=/config/full-year.toml
+#   python3 scripts/local_run.py --seed 1 --config \
+#     tasks/vending-bench/environment/sim-server/variants/full-year.toml
+#
+# The [solution] block retunes the scripted reference for a year: it buys
+# deeper cover, opens with a larger first order and negotiates further.
+extends = "../vending/config.toml"
+[horizon]
+sim_days = 365
+[solution]
+cover_days = 45
+first_order_small = 150
+first_order_large = 100
+negotiation_rounds = 4

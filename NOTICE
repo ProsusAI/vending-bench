@@ -1,0 +1,74 @@
+Prosus Vending Bench
+Copyright 2026 MIH AI B.V.
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+------------------------------------------------------------------------
+Attribution
+------------------------------------------------------------------------
+
+This benchmark ships as a task for the Harbor evaluation framework and
+follows Harbor's MCP sidecar task pattern.
+
+  Harbor ......... Apache-2.0 .... https://github.com/harbor-framework/harbor
+
+  @software{Harbor_Framework,
+    author = {{Harbor Framework Team}},
+    title  = {{Harbor: A framework for evaluating and optimizing agents and
+              models in container environments}},
+    year   = {2026},
+    doi    = {10.5281/zenodo.20953922},
+    url    = {https://doi.org/10.5281/zenodo.20953922}
+  }
+
+------------------------------------------------------------------------
+Prior art
+------------------------------------------------------------------------
+
+Vending-machine agent benchmarking is prior art, and this implementation's
+per-product economics follow a shape established in that literature: a
+reference price, a base sales rate at that price, and a price elasticity per
+item. Everything here is independently written and independently parameterised.
+No score produced by this benchmark is comparable with a score from any other
+vending benchmark.
+
+------------------------------------------------------------------------
+Third-party components
+------------------------------------------------------------------------
+
+The simulation server and the benchmark scripts use only the Python 3.11+
+standard library at runtime, apart from the MCP transport. Optional and
+development dependencies, none of which are vendored or redistributed here,
+are all permissively licensed:
+
+  fastmcp ........ Apache-2.0 .... https://github.com/jlowin/fastmcp
+  httpx .......... BSD-3-Clause .. https://github.com/encode/httpx
+  python-dotenv .. BSD-3-Clause .. https://github.com/theskumar/python-dotenv
+  pytest ......... MIT ........... https://github.com/pytest-dev/pytest
+  matplotlib ..... PSF-based ..... https://github.com/matplotlib/matplotlib
+  uv ............. Apache-2.0/MIT  https://github.com/astral-sh/uv
+
+Model runs are executed by invoking the user's own authenticated Claude CLI or
+the user's own OpenRouter account. Neither is bundled or redistributed, and no
+API credentials are stored in this repository or in its published results.
+
+Supplier companies, products, customers, email addresses, prices and locations
+in the simulation are fictional. Any resemblance to real businesses is
+coincidental. The economy is synthetic and is not fitted to real point-of-sale
+data.
+
+------------------------------------------------------------------------
+Benchmark data
+------------------------------------------------------------------------
+
+Task instructions, reference solutions, trajectories and results should be
+excluded from model training corpora. The task files carry a canary GUID so
+contamination can be detected. That request does not change the Apache 2.0
+license.
+
+------------------------------------------------------------------------
+Authorship
+------------------------------------------------------------------------
+
+Portions of this project were co-authored by Claude Code under human direction
+and review.

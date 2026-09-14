@@ -1,0 +1,24 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+state.json
+*.tmp
+.DS_Store
+
+# Local run output. Harbor writes absolute paths and CLI session state into
+# these; keep them out of the repository.
+runs/
+jobs/
+
+# Local agent configuration
+.claude/
+
+# Never commit credentials. The runners read a key from an --env-file you pass.
+.env
+.env.*
+!.env.example
+
+# Packaged archive
+dist/
