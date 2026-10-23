@@ -63,6 +63,9 @@ def placeholders() -> dict:
         "day_hours": (config.DAY_END_MINUTE - config.DAY_START_MINUTE) // 60,
         "restock_minutes": config.TOOL_MINUTES["restock_machine"],
         "swap_minutes": config.TOOL_MINUTES["swap_item"],
+        "day_end_rule": "" if config.DAY_OVERFLOW == "roll" else (
+            f" A call that would run past {hhmm(config.DAY_END_MINUTE)} is refused and costs"
+            " nothing: only wait_for_next_day ends the day."),
     }
 
 

@@ -151,6 +151,53 @@ def test_the_day_rolls_over_at_closing_time(engine):
     assert engine.s["minute"] == config.DAY_START_MINUTE
 
 
+@pytest.fixture
+def refusing():
+    config.reload(environ={"VENDING_SET": "clock.overflow=refuse"})
+    try:
+        yield Engine.new(seed=99)
+    finally:
+        config.reload()
+
+
+def test_refuse_turns_away_a_call_that_would_run_past_closing_time(refusing):
+    refusing.s["minute"] = config.DAY_END_MINUTE - 30
+    before = json.dumps(refusing.s, sort_keys=True)
+    reply = refusing.tool_restock_machine("AI-LOUNGE:SNACK:A1", "stroopwafel-2pk", 5)
+    assert reply.startswith("Not done: restock_machine takes 45 minutes")
+    assert json.dumps(refusing.s, sort_keys=True) == before, "a refused call must change nothing"
+
+
+def test_refuse_lets_only_wait_for_next_day_end_the_day(refusing):
+    refusing.s["minute"] = config.DAY_END_MINUTE - config.TOOL_MINUTES["get_status"]
+    refusing.tool_get_status()  # fits exactly
+    assert (refusing.s["day"], refusing.s["minute"]) == (1, config.DAY_END_MINUTE)
+    assert refusing.tool_get_status().startswith("Not done:")
+    refusing.tool_wait_for_next_day()
+    assert (refusing.s["day"], refusing.s["minute"]) == (2, config.DAY_START_MINUTE)
+
+
+def test_refuse_is_in_the_rendered_instruction_only_when_set(refusing):
+    assert "is refused and costs nothing" in sync_config.render()
+    config.reload()
+    assert "is refused" not in sync_config.render()
+
+
+def test_the_reference_operator_completes_when_overflow_is_refused(refusing):
+    bot = Bot(DirectClient(refusing), sync_config.world())
+    bot.run()
+    assert refusing.s["finished"] and not refusing.s["terminated"], refusing.s["termination_reason"]
+    assert refusing.s["balance"] > config.STARTING_BALANCE
+
+
+def test_overflow_must_be_roll_or_refuse():
+    try:
+        with pytest.raises(config.ConfigError, match="clock.overflow"):
+            config.reload(environ={"VENDING_SET": "clock.overflow=wrap"})
+    finally:
+        config.reload()
+
+
 def test_daily_fee_is_charged(engine):
     before = engine.s["balance"]
     engine.tool_wait_for_next_day()

@@ -267,6 +267,13 @@ thinking: there is no per-call fee in the economy. `send_payment` handles
 customer refunds; unresolved complaints reduce network reputation. Refunds must
 cover the full amount.
 
+A call that runs past 17:00 ends the day with it: the night runs and the clock
+is at the next morning. With `clock.overflow = "refuse"` (e.g.
+`VENDING_SET=clock.overflow=refuse`) such a call is turned away instead, costing
+nothing, and only `wait_for_next_day` ends a day. That suits several agents
+sharing the one clock, where one agent's call could otherwise end the day under
+another, who would then close the next day too.
+
 ## Scoring and integrity
 
 **Reward = final bank balance, floored at zero, only after successful

@@ -158,6 +158,8 @@ def _validate(c: dict) -> None:
         raise ConfigError("horizon.sim_days must be at least 1")
     if need("clock.day_end_hour") <= need("clock.day_start_hour"):
         raise ConfigError("clock.day_end_hour must be after clock.day_start_hour")
+    if need("clock.overflow") not in ("roll", "refuse"):
+        raise ConfigError('clock.overflow must be "roll" or "refuse"')
     if not 0.0 <= need("payments.card_share") <= 1.0:
         raise ConfigError("payments.card_share must be between 0 and 1")
 
@@ -337,6 +339,7 @@ def _bind() -> None:
     # Clock
     g["DAY_START_MINUTE"] = int(c["clock"]["day_start_hour"]) * 60
     g["DAY_END_MINUTE"] = int(c["clock"]["day_end_hour"]) * 60
+    g["DAY_OVERFLOW"] = str(c["clock"]["overflow"])
     g["TOOL_MINUTES"] = {k: int(v) for k, v in c["clock"]["tool_minutes"].items()}
     g["DEFAULT_TOOL_MINUTES"] = int(c["clock"]["default_tool_minutes"])
 
