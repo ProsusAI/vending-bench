@@ -131,12 +131,16 @@ class Engine:
     def spend_time(self, tool: str) -> list[str]:
         """Advance the clock for a tool call. Returns any overnight notices."""
         self.s["tool_calls"] += 1
-        minutes = config.TOOL_MINUTES.get(tool, config.DEFAULT_TOOL_MINUTES)
-        self.s["minute"] += minutes
+        self.s["minute"] += self._minutes(tool)
         notices: list[str] = []
-        while self.s["minute"] >= config.DAY_END_MINUTE and not self.over:
+        while (config.DAY_OVERFLOW == "roll" and self.s["minute"] >= config.DAY_END_MINUTE
+               and not self.over):
             notices.extend(self._roll_day())
         return notices
+
+    @staticmethod
+    def _minutes(tool: str) -> int:
+        return config.TOOL_MINUTES.get(tool, config.DEFAULT_TOOL_MINUTES)
 
     def wait_for_next_day(self) -> list[str]:
         self.s["tool_calls"] += 1
@@ -400,7 +404,7 @@ class Engine:
         return round(max(rules["traffic_floor"], min(rules["traffic_cap"], effect)), 4)
 
     def tool_run_marketing(self, location: str, channel: str, message: str) -> str:
-        if (g := self._guard()): return g
+        if (g := self._guard("run_marketing")): return g
         location, channel = location.strip().upper(), channel.strip().lower()
         if location not in config.LOCATIONS or channel not in config.MARKETING["channels"]:
             return self._finish("run_marketing", "Choose a listed location and channel: prints, slack, mail.")
@@ -415,7 +419,7 @@ class Engine:
         return self._finish("run_marketing", f"Simulated {channel} campaign at {location}; cost {config.money(cost)}; traffic multiplier {self.marketing_traffic(location):.2f}.")
 
     def tool_get_marketing_report(self) -> str:
-        if (g := self._guard()): return g
+        if (g := self._guard("get_marketing_report")): return g
         return self._finish("get_marketing_report", json.dumps({"rules": config.MARKETING,
             "traffic": {loc: self.marketing_traffic(loc) for loc in config.LOCATIONS},
             "recent": [m for m in self.s["marketing"] if self.s["day"] - m["day"] < config.MARKETING["window_days"]]}))
@@ -428,7 +432,7 @@ class Engine:
         return _round(base * (1 - discount)), discount
 
     def tool_check_offers(self, supplier_id: str, quantity: int = 20) -> str:
-        if (g := self._guard()): return g
+        if (g := self._guard("check_offers")): return g
         supplier = SUPPLIERS.get(supplier_id)
         if supplier is None or supplier_id in self.s["defunct_suppliers"] or not 1 <= quantity <= config.MATCH_MAX_QUANTITY:
             return self._finish("check_offers", "Unknown/unavailable supplier or invalid quantity.")
@@ -459,7 +463,7 @@ class Engine:
                 "lines": [{"product_id": l.product_id, "quantity": l.quantity, "unit_price": l.unit_price} for l in lines]}
 
     def tool_order_goods(self, supplier_id: str, items: dict[str, int]) -> str:
-        if (g := self._guard()): return g
+        if (g := self._guard("order_goods")): return g
         return self._finish("order_goods", json.dumps(self._purchase(supplier_id, items)))
 
     def _settle_outstanding_card(self) -> list[str]:
@@ -823,11 +827,21 @@ class Engine:
         self.save()
         return "\n".join(parts)
 
-    def _guard(self) -> str | None:
+    def _guard(self, tool: str | None = None) -> str | None:
+        """Why `tool` can't run now, or None. Called before the tool does anything."""
         if self.over:
             return (
                 "SIMULATION OVER. No further actions are possible.\n"
                 + self._final_summary()
+            )
+        if (tool and config.DAY_OVERFLOW == "refuse"
+                and self.s["minute"] + self._minutes(tool) > config.DAY_END_MINUTE):
+            end = config.DAY_END_MINUTE
+            return (
+                f"Not done: {tool} takes {self._minutes(tool)} minutes and the working "
+                f"day ends at {end // 60:02d}:{end % 60:02d}. Nothing was spent. "
+                "Only wait_for_next_day ends the day.\n\n"
+                f"[{self.status_line()}]"
             )
         return None
 
@@ -850,7 +864,7 @@ class Engine:
 
     def tool_get_status(self) -> str:
         sym = config.CURRENCY_SYMBOL
-        if (g := self._guard()):
+        if (g := self._guard("get_status")):
             return g
         open_orders = [
             f"  {o['id']} — {o['supplier_name']} — {o['status']} — {sym}{o['total']:,.2f}"
@@ -896,7 +910,7 @@ class Engine:
         return self._finish("get_status", "\n".join(lines))
 
     def tool_search_web(self, query: str) -> str:
-        if (g := self._guard()):
+        if (g := self._guard("search_web")):
             return g
         q = (query or "").lower()
         q_tokens = set(mailroom._tokens(q))
@@ -952,7 +966,7 @@ class Engine:
 
     def tool_list_emails(self, folder: str = "inbox", unread_only: bool = False,
                          limit: int | None = None) -> str:
-        if (g := self._guard()):
+        if (g := self._guard("list_emails")):
             return g
         folder = (folder or "inbox").lower()
         items = [e for e in self.s["emails"] if e["folder"] == folder]
@@ -971,7 +985,7 @@ class Engine:
         return self._finish("list_emails", "\n".join(rows))
 
     def tool_read_email(self, email_id: str) -> str:
-        if (g := self._guard()):
+        if (g := self._guard("read_email")):
             return g
         for e in self.s["emails"]:
             if e["id"].lower() == (email_id or "").strip().lower():
@@ -987,7 +1001,7 @@ class Engine:
         return self._finish("read_email", f"No email with id {email_id!r}.")
 
     def tool_send_email(self, to: str, subject: str, body: str) -> str:
-        if (g := self._guard()):
+        if (g := self._guard("send_email")):
             return g
         to = (to or "").strip()
         if "@" not in to:
@@ -1013,7 +1027,7 @@ class Engine:
         )
 
     def tool_send_payment(self, recipient: str, amount: float, reference: str) -> str:
-        if (g := self._guard()):
+        if (g := self._guard("send_payment")):
             return g
         sym = config.CURRENCY_SYMBOL
         try:
@@ -1108,7 +1122,7 @@ class Engine:
     # -- storage and the machine
 
     def tool_get_storage_inventory(self) -> str:
-        if (g := self._guard()):
+        if (g := self._guard("get_storage_inventory")):
             return g
         sym = config.CURRENCY_SYMBOL
         if not self.s["storage"]:
@@ -1138,7 +1152,7 @@ class Engine:
         return self._finish("get_storage_inventory", "\n".join(rows))
 
     def tool_get_machine_inventory(self, machine_id: str = "") -> str:
-        if (g := self._guard()):
+        if (g := self._guard("get_machine_inventory")):
             return g
         sym = config.CURRENCY_SYMBOL
         rows = [
@@ -1179,7 +1193,7 @@ class Engine:
         return self._finish("get_machine_inventory", "\n".join(rows))
 
     def tool_restock_machine(self, slot: str, product_id: str, quantity: int) -> str:
-        if (g := self._guard()):
+        if (g := self._guard("restock_machine")):
             return g
         return self._load_slot("restock_machine", slot, product_id, quantity)
 
@@ -1190,7 +1204,7 @@ class Engine:
         restock_machine, which is what changing a slot's product otherwise
         costs.
         """
-        if (g := self._guard()):
+        if (g := self._guard("swap_item")):
             return g
         current = self.s["machine"].get((slot or "").strip().upper())
         if current is not None and (not current.get("product_id")
@@ -1299,7 +1313,7 @@ class Engine:
         return self._finish(tool, "\n".join(msg))
 
     def tool_clear_slot(self, slot: str) -> str:
-        if (g := self._guard()):
+        if (g := self._guard("clear_slot")):
             return g
         slot = (slot or "").strip().upper()
         if slot not in self.s["machine"]:
@@ -1318,7 +1332,7 @@ class Engine:
         )
 
     def tool_set_price(self, slot: str, price: float) -> str:
-        if (g := self._guard()):
+        if (g := self._guard("set_price")):
             return g
         slot = (slot or "").strip().upper()
         if slot not in self.s["machine"]:
@@ -1341,7 +1355,7 @@ class Engine:
 
     def tool_get_sales_report(self, days: int | None = None,
                               by_product: bool = False, location: str = "") -> str:
-        if (g := self._guard()):
+        if (g := self._guard("get_sales_report")):
             return g
         sym = config.CURRENCY_SYMBOL
         days = int(days or config.SALES_REPORT_DEFAULT_DAYS)
@@ -1396,7 +1410,7 @@ class Engine:
         return self._finish("get_sales_report", "\n".join(rows))
 
     def tool_write_note(self, key: str, text: str) -> str:
-        if (g := self._guard()):
+        if (g := self._guard("write_note")):
             return g
         key = (key or "").strip()
         if not key:
@@ -1408,7 +1422,7 @@ class Engine:
         return self._finish("write_note", f"Saved note {key!r}.")
 
     def tool_read_notes(self, key: str | None = None) -> str:
-        if (g := self._guard()):
+        if (g := self._guard("read_notes")):
             return g
         if key:
             note = self.s["notes"].get(key.strip())
@@ -1430,7 +1444,7 @@ class Engine:
         return self._finish("read_notes", "\n".join(out))
 
     def tool_set_reminder(self, text: str, in_days: int = 1) -> str:
-        if (g := self._guard()):
+        if (g := self._guard("set_reminder")):
             return g
         try:
             in_days = max(0, int(in_days))
@@ -1444,7 +1458,7 @@ class Engine:
         )
 
     def tool_list_reminders(self) -> str:
-        if (g := self._guard()):
+        if (g := self._guard("list_reminders")):
             return g
         pending = [r for r in self.s["reminders"] if not r["done"]]
         if not pending:

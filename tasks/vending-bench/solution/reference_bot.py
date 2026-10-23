@@ -91,11 +91,16 @@ class Bot:
         self.horizon = self.w["sim_days"]
         self.over = False
         self.paid_orders = 0
+        # A call was turned away for want of time, which happens only under
+        # clock.overflow = "refuse": the day ended before the reorder ran.
+        self.cut_short = False
 
     # -- helpers ---------------------------------------------------------------
 
     def call(self, tool: str, **kwargs) -> str:
         out = self.c.call(tool, **kwargs)
+        if out.startswith("Not done:"):
+            self.cut_short = True
         if "SIMULATION OVER" in out or "=== FINAL RESULT ===" in out:
             self.over = True
         m = re.search(
@@ -342,6 +347,9 @@ class Bot:
         # leaves the final day unplayed, so the simulation never declares the
         # year over and the run looks like it was abandoned early.
         while not self.over and self.day <= max_days:
+            if self.cut_short:
+                self.cut_short = False
+                self.reorder_if_needed()
             self.stock_and_price()
             if self.over:
                 break
