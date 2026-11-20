@@ -1,5 +1,9 @@
 schema_version = "1.1"
 
+# The sealed score is collected from sim-server, never from the agent's
+# container (see [[verifier.collect]] below).
+artifacts = [{ source = "/tmp/finalized.json", service = "sim-server" }]
+
 [task]
 name = "prosus/prosus-vending-bench"
 version = "3.0.0"
@@ -25,6 +29,18 @@ reward_note = "Reward is the nonnegative final bank balance after completion; in
 # full-year variant; the default 30-day task finishes well inside it.
 [verifier]
 timeout_sec = 900.0
+# Grade in a fresh container. The agent is root in its own container, so a
+# verifier running there could use binaries or processes the agent left behind.
+# Harbor stops the agent's container before a separate verifier starts.
+environment_mode = "separate"
+
+# Seal the run inside sim-server. Harbor runs sidecar hooks after the agent's
+# container has stopped, so nothing the agent left behind takes part. The reply
+# reaches the verifier as the artifact declared at the top of this file.
+[[verifier.collect]]
+service = "sim-server"
+command = "curl -fsS --max-time 120 -X POST http://localhost:8000/verifier/finalize -o /tmp/finalized.json"
+timeout_sec = 180.0
 
 [agent]
 timeout_sec = 43200.0

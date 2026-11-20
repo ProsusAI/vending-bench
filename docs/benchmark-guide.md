@@ -289,6 +289,13 @@ run and cannot keep operating with the exposed information. Sealing is
 serialized with tool calls. Deployment should still isolate each trial; this is
 not a multi-user hosted service.
 
+Under Harbor the verifier never runs in the agent's container. Harbor stops the
+agent's container first, then a `[[verifier.collect]]` hook seals the run inside
+`sim-server` and the reply reaches a separate verifier container as an artifact
+(`environment_mode = "separate"`). Nothing the agent left behind (a replaced
+binary, a background process) takes part in grading. A missing or unreadable
+score fails the trial as a verifier error instead of recording a zero.
+
 Public source and the scripted reference disclose economic parameters. Treat
 this as an open-book benchmark, and report agent configuration and source-access
 policy. Do not claim held-out generalisation from performance on these public
