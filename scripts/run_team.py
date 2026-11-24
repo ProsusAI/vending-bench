@@ -418,8 +418,9 @@ def main():
     ap.add_argument('--context-chars', type=int, default=60000)
     ap.add_argument('--worker-context-chars', type=int, default=30000)
     ap.add_argument('--resume', action='store_true', help='Continue unfinished trials in --output')
-    ap.add_argument('--keep-open-on-error', action='store_true', default=True,
-                    help=argparse.SUPPRESS)
+    ap.add_argument('--keep-open-on-error', action=argparse.BooleanOptionalAction, default=True,
+                    help='On an API error, leave the trial open for --resume (default) '
+                         'instead of scoring it zero')
     ap.add_argument('--env-file', type=Path)
     ap.add_argument('--output', type=Path, required=True)
     args = ap.parse_args()

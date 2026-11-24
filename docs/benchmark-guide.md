@@ -143,7 +143,9 @@ The world, briefing, budget reservation, price ceilings, provenance files and
 result record are the single-agent runner's, so a team run and a single-agent
 run on the same seed meet the same world. `--run-budget MODEL=USD` caps each
 operator's run, worker spend included. `--resume` continues every trial in
-`--output` that has no `result.json` yet. A team is a different harness:
+`--output` that has no `result.json` yet. Unlike the single-agent runner, an
+API error leaves the trial open for `--resume` instead of scoring it zero; use
+`--no-keep-open-on-error` to score it zero at once. A team is a different harness:
 compare team runs with single-agent runs side by side, not in one ranking.
 
 Render a batch into a table and chart with:
