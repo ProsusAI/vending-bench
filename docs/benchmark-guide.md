@@ -120,6 +120,34 @@ identifiers, conversations, trajectories, source provenance and a Markdown
 report. Budget, time and API failures remain visible and unfinished runs score
 zero. Compare these runs within this harness, separately from Claude CLI runs.
 
+To split the business between two models, an operator and a worker:
+
+```bash
+uv run --with fastmcp==2.11.3 --with httpx --with python-dotenv \
+  python scripts/run_team.py --env-file /path/to/.env \
+  --models anthropic/claude-haiku-5.5 --worker deepseek/deepseek-v4.1-flash-1017 \
+  --run-budget anthropic/claude-haiku-5.5=5 --days 30 --seeds 1 \
+  --output results/my-team-batch
+```
+
+The operator plans, buys, emails, pays, markets and keeps notes. It does not
+work at the machines. It gives instructions to the worker with `run_sub_agent`
+and asks it questions with `chat_with_sub_agent`. The worker has only the
+machine tools: it reads the machines and the depot, restocks, swaps and clears
+slots, and sets prices. It takes at most `--max-worker-steps` responses (30) per
+task, then reports. Both models share one simulated clock. The operator keeps
+the last 60,000 characters of its conversation and the worker 30,000
+(`--context-chars`, `--worker-context-chars`).
+
+The world, briefing, budget reservation, price ceilings, provenance files and
+result record are the single-agent runner's, so a team run and a single-agent
+run on the same seed meet the same world. `--run-budget MODEL=USD` caps each
+operator's run, worker spend included. `--resume` continues every trial in
+`--output` that has no `result.json` yet. Unlike the single-agent runner, an
+API error leaves the trial open for `--resume` instead of scoring it zero; use
+`--no-keep-open-on-error` to score it zero at once. A team is a different harness:
+compare team runs with single-agent runs side by side, not in one ranking.
+
 Render a batch into a table and chart with:
 
 ```bash
