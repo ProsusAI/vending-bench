@@ -4,6 +4,7 @@
 |---|---|
 | [`baselines/`](baselines/README.md) | Reference scores: five frontier models over 30 days, and the scripted operator over both horizons |
 | [`validation/`](validation/README.md) | Integration checks that the Harbor task and the in-process reference agree to the cent |
+| [`two-agent-seed1/`](two-agent-seed1/README.md) | Five operators alone and with a worker, 30 and 365 days, seed 1, every attempt listed (v3) |
 
 > [!NOTE]
 > **Awaiting a v3 batch.** Benchmark v3.0.0 changed the working day, the cash
