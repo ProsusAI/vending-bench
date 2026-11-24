@@ -1,0 +1,26 @@
+{
+  "setup": "team",
+  "models": [
+    "openai/gpt-6.1-sol",
+    "anthropic/claude-opus-5.5",
+    "google/gemini-4-argon",
+    "anthropic/claude-haiku-5.5",
+    "deepseek/deepseek-v4.1-flash-1017"
+  ],
+  "worker": "deepseek/deepseek-v4.1-flash-1017",
+  "seeds": [
+    1
+  ],
+  "days": 30,
+  "run_budget_usd": {
+    "openai/gpt-6.1-sol": 20.0,
+    "anthropic/claude-opus-5.5": 40.0,
+    "google/gemini-4-argon": 20.0,
+    "anthropic/claude-haiku-5.5": 5.0,
+    "deepseek/deepseek-v4.1-flash-1017": 5.0
+  },
+  "total_budget_usd": 90.0,
+  "trials": 5,
+  "source_sha256": "d3ac2ed52e8793fab763e67a219737c111295cfddc9fb304b30b75a268cef4f9",
+  "started_at": "2026-11-22T15:23:12Z"
+}

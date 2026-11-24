@@ -1,0 +1,12 @@
+{
+  "model": "google/gemini-4-argon",
+  "worker_model": "deepseek/deepseek-v4.1-flash-1017",
+  "seed": 1,
+  "turns": 879,
+  "worker_turns": 1539,
+  "day": 365,
+  "tool_calls": 4281,
+  "api_cost_usd": 21.702939551999997,
+  "runtime_seconds": 11087.721961232019,
+  "outcome": "simulation_ended"
+}

@@ -1,0 +1,208 @@
+{
+  "openai/gpt-6.1-sol": {
+    "id": "openai/gpt-6.1-sol",
+    "canonical_slug": "openai/gpt-6.1-sol-20260929",
+    "hugging_face_id": null,
+    "name": "OpenAI: GPT-6.1 Sol",
+    "created": 1790702882,
+    "description": "GPT-6.1 Sol is an upgrade to GPT-6 Sol from OpenAI, positioned below the flagship GPT-6 Astra in the GPT-6 series. It is suited for agentic coding, computer use, document-heavy professional...",
+    "context_length": 1050000,
+    "architecture": {
+      "modality": "text+image+file->text",
+      "input_modalities": [
+        "file",
+        "image",
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "GPT",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.000002",
+      "completion": "0.00001",
+      "web_search": "0.01",
+      "input_cache_read": "0.0000001",
+      "input_cache_write": "0.0000025",
+      "overrides": [
+        {
+          "min_prompt_tokens": 272000,
+          "prompt": "0.000004",
+          "completion": "0.000015",
+          "input_cache_read": "0.0000002",
+          "input_cache_write": "0.000005"
+        }
+      ]
+    },
+    "top_provider": {
+      "context_length": 1050000,
+      "max_completion_tokens": 128000,
+      "is_moderated": true
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "include_reasoning",
+      "max_completion_tokens",
+      "max_tokens",
+      "reasoning",
+      "reasoning_effort",
+      "response_format",
+      "seed",
+      "structured_outputs",
+      "tool_choice",
+      "tools",
+      "verbosity"
+    ],
+    "default_parameters": {},
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/openai/gpt-6.1-sol-20260929/endpoints"
+    },
+    "endpoints": [
+      "/api/v1/chat/completions",
+      "/api/v1/completions",
+      "/api/v1/messages",
+      "/api/v1/responses"
+    ],
+    "benchmarks": {
+      "design_arena": [
+        {
+          "arena": "agents",
+          "category": "androidnative",
+          "elo": 1191,
+          "win_rate": 48.1,
+          "rank": 15
+        },
+        {
+          "arena": "agents",
+          "category": "blender3d",
+          "elo": 1238,
+          "win_rate": 59.9,
+          "rank": 2
+        },
+        {
+          "arena": "agents",
+          "category": "codetovideo",
+          "elo": 1185,
+          "win_rate": 54,
+          "rank": 17
+        },
+        {
+          "arena": "agents",
+          "category": "fullstack",
+          "elo": 1225,
+          "win_rate": 47.2,
+          "rank": 14
+        },
+        {
+          "arena": "agents",
+          "category": "mobileapps",
+          "elo": 1227,
+          "win_rate": 52.6,
+          "rank": 15
+        },
+        {
+          "arena": "agents",
+          "category": "pdf",
+          "elo": 1123,
+          "win_rate": 42.4,
+          "rank": 39
+        },
+        {
+          "arena": "agents",
+          "category": "spreadsheet",
+          "elo": 1207,
+          "win_rate": 41.2,
+          "rank": 14
+        },
+        {
+          "arena": "agents",
+          "category": "webapps",
+          "elo": 1268,
+          "win_rate": 56.6,
+          "rank": 9
+        },
+        {
+          "arena": "models",
+          "category": "3d",
+          "elo": 1414,
+          "win_rate": 59.3,
+          "rank": 6
+        },
+        {
+          "arena": "models",
+          "category": "codecategories",
+          "elo": 1353,
+          "win_rate": 56.4,
+          "rank": 6
+        },
+        {
+          "arena": "models",
+          "category": "dataviz",
+          "elo": 1282,
+          "win_rate": 52.8,
+          "rank": 19
+        },
+        {
+          "arena": "models",
+          "category": "gamedev",
+          "elo": 1385,
+          "win_rate": 58.1,
+          "rank": 7
+        },
+        {
+          "arena": "models",
+          "category": "svg",
+          "elo": 1333,
+          "win_rate": 59.9,
+          "rank": 3
+        },
+        {
+          "arena": "models",
+          "category": "uicomponent",
+          "elo": 1356,
+          "win_rate": 58.5,
+          "rank": 6
+        },
+        {
+          "arena": "models",
+          "category": "website",
+          "elo": 1312,
+          "win_rate": 54.1,
+          "rank": 11
+        }
+      ],
+      "artificial_analysis": {
+        "intelligence_index": 54.6,
+        "coding_index": null,
+        "agentic_index": null,
+        "finance_and_accounting_index": 56.2,
+        "strategy_and_ops_index": 57.6,
+        "legal_index": 53.7,
+        "healthcare_and_medical_index": 52,
+        "engineering_index": 59.4,
+        "economics_index": 56.3,
+        "cyber_index": null,
+        "openness_index": null,
+        "multilingual_index": null,
+        "decision_index": null
+      }
+    },
+    "reasoning": {
+      "mandatory": true,
+      "default_enabled": true,
+      "supported_efforts": [
+        "max",
+        "xhigh",
+        "high",
+        "medium",
+        "low"
+      ],
+      "default_effort": "medium"
+    }
+  }
+}

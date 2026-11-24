@@ -1,0 +1,9 @@
+{
+  "model": "anthropic/claude-haiku-5.5",
+  "seed": 1,
+  "turns": 729,
+  "day": 365,
+  "tool_calls": 1685,
+  "api_cost_usd": 1.4790286000000004,
+  "runtime_seconds": 1335.267422672012
+}

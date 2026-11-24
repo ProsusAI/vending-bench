@@ -1,0 +1,12 @@
+{
+  "model": "anthropic/claude-haiku-5.5",
+  "worker_model": "deepseek/deepseek-v4.1-flash-1017",
+  "seed": 1,
+  "turns": 12,
+  "worker_turns": 0,
+  "day": 3,
+  "tool_calls": 24,
+  "api_cost_usd": 0.00823671,
+  "runtime_seconds": 21.577094582957216,
+  "outcome": "simulation_ended"
+}

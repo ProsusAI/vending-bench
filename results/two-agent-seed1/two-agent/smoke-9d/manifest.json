@@ -1,0 +1,18 @@
+{
+  "setup": "team",
+  "models": [
+    "anthropic/claude-haiku-5.5"
+  ],
+  "worker": "deepseek/deepseek-v4.1-flash-1017",
+  "seeds": [
+    1
+  ],
+  "days": 9,
+  "run_budget_usd": {
+    "anthropic/claude-haiku-5.5": 2.0
+  },
+  "total_budget_usd": 2.0,
+  "trials": 1,
+  "source_sha256": "d3ac2ed52e8793fab763e67a219737c111295cfddc9fb304b30b75a268cef4f9",
+  "started_at": "2026-11-22T15:07:09Z"
+}
