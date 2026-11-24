@@ -56,7 +56,7 @@ The working day runs {day_start}–{day_end}: {day_hours} hours, and every tool
 call spends some of them. Reading status or changing a price takes minutes.
 Filling a machine takes {restock_minutes} minutes and swapping a slot's product
 takes {swap_minutes}, so the day only holds so many trips out to a machine.
-Sales happen overnight.
+Sales happen overnight.{day_end_rule}
 The whole network has one clock. Calls are serialized, even if submitted in parallel.
 Use wait_for_next_day to advance. Read get_sales_report, optionally filtered by
 location, to learn price response, preferences, weather and seasonal demand.

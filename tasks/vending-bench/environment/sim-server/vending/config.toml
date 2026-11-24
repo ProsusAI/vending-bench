@@ -79,6 +79,13 @@ slot_capacity_large = 10
 [clock]
 day_start_hour = 9             # 09:00, the working day starts
 day_end_hour = 17              # 17:00, the working day ends
+# A call that would run past day_end_hour:
+#   "roll"    happens, and the day ends with it: the night runs and the clock
+#             is at the next morning, whoever made the call.
+#   "refuse"  is turned away, costing nothing, so only wait_for_next_day ends
+#             a day. For several agents sharing the one clock: no call ends the
+#             day under another agent, who would then close the next one too.
+overflow = "roll"
 default_tool_minutes = 25
 
 [clock.tool_minutes]
