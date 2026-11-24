@@ -1,0 +1,12 @@
+{
+  "model": "anthropic/claude-opus-5.5",
+  "worker_model": "deepseek/deepseek-v4.1-flash-1017",
+  "seed": 1,
+  "turns": 68,
+  "worker_turns": 226,
+  "day": 30,
+  "tool_calls": 382,
+  "api_cost_usd": 4.047305058000003,
+  "runtime_seconds": 789.7246535959421,
+  "outcome": "simulation_ended"
+}

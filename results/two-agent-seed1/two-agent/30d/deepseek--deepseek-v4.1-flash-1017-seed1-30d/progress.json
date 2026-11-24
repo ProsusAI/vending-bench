@@ -1,0 +1,12 @@
+{
+  "model": "deepseek/deepseek-v4.1-flash-1017",
+  "worker_model": "deepseek/deepseek-v4.1-flash-1017",
+  "seed": 1,
+  "turns": 65,
+  "worker_turns": 157,
+  "day": 30,
+  "tool_calls": 504,
+  "api_cost_usd": 0.22549795399999994,
+  "runtime_seconds": 724.8037462569773,
+  "outcome": "simulation_ended"
+}

@@ -1,0 +1,9 @@
+{
+  "model": "google/gemini-4-argon",
+  "seed": 1,
+  "turns": 9,
+  "day": 3,
+  "tool_calls": 41,
+  "api_cost_usd": 0.0810825,
+  "runtime_seconds": 61.1456888349494
+}

@@ -1,0 +1,14 @@
+{
+  "models": [
+    "openai/gpt-6.1-sol"
+  ],
+  "seeds": [
+    1
+  ],
+  "days": 30,
+  "total_budget_usd": 20.0,
+  "per_run_budget_usd": 20.0,
+  "trials": 1,
+  "source_sha256": "d3ac2ed52e8793fab763e67a219737c111295cfddc9fb304b30b75a268cef4f9",
+  "started_at": "2026-11-22T20:57:19Z"
+}

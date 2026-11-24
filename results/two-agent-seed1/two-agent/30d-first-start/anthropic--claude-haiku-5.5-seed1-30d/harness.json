@@ -1,0 +1,27 @@
+{
+  "harness": "Operator and worker team: OpenRouter chat completions + in-process FastMCP client",
+  "model_requested": "anthropic/claude-haiku-5.5",
+  "worker_model": "deepseek/deepseek-v4.1-flash-1017",
+  "operator_tools": "The 22 MCP business tools minus restock_machine, swap_item, clear_slot and set_price, plus run_sub_agent and chat_with_sub_agent",
+  "worker_tools": [
+    "clear_slot",
+    "get_machine_inventory",
+    "get_storage_inventory",
+    "restock_machine",
+    "set_price",
+    "swap_item"
+  ],
+  "budget_usd": 5.0,
+  "prompt_caching": "Anthropic operators cache the tools and briefing (cost only)",
+  "timeout_seconds": null,
+  "max_operator_turns": null,
+  "max_worker_steps": 30,
+  "max_output_tokens": 4096,
+  "context_chars": 60000,
+  "worker_context_chars": 30000,
+  "memory_policy": "You are the operator. You do not visit the machines yourself. A worker does all physical work: restocking, swapping and clearing slots, and setting prices. Give it complete, specific instructions with run_sub_agent (slot ids, product ids, quantities, prices); it carries them out and reports back. Ask it about what it did or saw with chat_with_sub_agent. You can still read machines and the depot yourself. Conversation history uses a rolling window of complete tool exchanges, so older exchanges may disappear: keep your plans and discoveries with write_note and read_notes. Continue using your tools until the simulation ends.",
+  "reasoning": "low when supported; otherwise provider default",
+  "routing": "No model fallback; provider fallback allowed within catalog price ceilings",
+  "tool_order": "Sequential, including batches",
+  "temperature": "provider default"
+}

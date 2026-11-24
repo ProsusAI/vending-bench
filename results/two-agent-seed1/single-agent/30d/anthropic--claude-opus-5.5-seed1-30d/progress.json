@@ -1,0 +1,9 @@
+{
+  "model": "anthropic/claude-opus-5.5",
+  "seed": 1,
+  "turns": 68,
+  "day": 30,
+  "tool_calls": 299,
+  "api_cost_usd": 6.032084000000001,
+  "runtime_seconds": 346.5931677200133
+}

@@ -1,0 +1,9 @@
+{
+  "model": "openai/gpt-6.1-sol",
+  "seed": 1,
+  "turns": 38,
+  "day": 12,
+  "tool_calls": 78,
+  "api_cost_usd": 0.13900730000000003,
+  "runtime_seconds": 68.28314467403106
+}
