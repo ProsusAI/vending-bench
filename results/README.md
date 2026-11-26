@@ -2,17 +2,17 @@
 
 | Directory | Contents |
 |---|---|
-| [`baselines/`](baselines/README.md) | Reference scores: five frontier models over 30 days, and the scripted operator over both horizons |
+| [`baselines/`](baselines/README.md) | Reference scores: five models over 30 days on seed 1 (v3), and the scripted operator over both horizons |
 | [`validation/`](validation/README.md) | Integration checks that the Harbor task and the in-process reference agree to the cent |
 | [`two-agent-seed1/`](two-agent-seed1/README.md) | Five operators alone and with a worker, 30 and 365 days, seed 1, every attempt listed (v3) |
 
 > [!NOTE]
-> **Awaiting a v3 batch.** Benchmark v3.0.0 changed the working day, the cash
-> handling and the tool-call cost, which invalidates every model trial and
-> validation run recorded before it. Their raw artifacts have been cleared and
-> their summary tables kept, marked as v2, until the batch is re-run. Only the
-> scripted reference under [`baselines/scripted-reference/`](baselines/scripted-reference/README.md)
-> is current.
+> **The validation runs are still v2.** Benchmark v3.0.0 changed the working
+> day, the cash handling and the tool-call cost, which invalidates every model
+> trial and validation run recorded before it. The 30-day model baseline under
+> [`baselines/models-30d/`](baselines/models-30d/README.md) has been re-run on
+> v3, with five models on seed 1. The validation runs have not: their raw
+> artifacts have been cleared and their summary table kept, marked as v2.
 
 Each model trial directory keeps its briefing, tool schemas, effective
 configuration, conversation, raw responses, billed usage, resolved model

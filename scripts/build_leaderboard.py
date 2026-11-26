@@ -40,11 +40,18 @@ OUTCOMES = {
 
 
 def display_name(model_id):
-    """'anthropic/claude-opus-5' -> 'Claude Opus 5'. Vendor-list free."""
-    slug = model_id.split('/', 1)[-1]
+    """'anthropic/claude-opus-5' -> 'Claude Opus 5'. Vendor-list free.
+
+    A trailing four-digit snapshot date ('deepseek-v4.1-flash-1017') is left out
+    of the label; the full model id stays in the CSV and in each result.json.
+    """
+    parts = model_id.split('/', 1)[-1].split('-')
+    if len(parts) > 1 and len(parts[-1]) == 4 and parts[-1].isdigit():
+        parts = parts[:-1]
     words = [w.upper() if w.replace('.', '').isdigit() else w.replace('-', ' ').title()
-             for w in slug.split('-')]
-    return ' '.join(words).replace('Gpt', 'GPT').replace('Glm', 'GLM')
+             for w in parts]
+    return (' '.join(words).replace('Gpt', 'GPT').replace('Glm', 'GLM')
+            .replace('Deepseek', 'DeepSeek'))
 
 
 def money(value):
