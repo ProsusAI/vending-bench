@@ -1,0 +1,1251 @@
+{
+  "env_overrides": {
+    "VENDING_SEED": "runtime.seed",
+    "VENDING_SIM_DAYS": "horizon.sim_days",
+    "VENDING_START_DATE": "horizon.start_date",
+    "VENDING_STARTING_BALANCE": "capital.starting_balance",
+    "VENDING_DAILY_FEE": "capital.daily_spot_fee",
+    "VENDING_MAX_UNPAID_DAYS": "capital.max_unpaid_days",
+    "VENDING_SLOT_CAP_SMALL": "machine.slot_capacity_small",
+    "VENDING_SLOT_CAP_LARGE": "machine.slot_capacity_large",
+    "VENDING_CARD_SHARE": "payments.card_share",
+    "VENDING_DEMAND_NOISE_SD": "demand.noise_sd",
+    "VENDING_COMPLAINT_CHANCE": "complaints.base_chance",
+    "VENDING_SUPPLIER_LLM": "runtime.supplier_llm",
+    "VENDING_PORT": "runtime.port",
+    "VENDING_STATE_PATH": "runtime.state_path",
+    "VENDING_RESUME": "runtime.resume"
+  },
+  "runtime": {
+    "seed": 1,
+    "state_path": "/home/boxd/vending-bench/results/single/30d/openai--gpt-6.1-sol-seed1-30d/live-state.json",
+    "port": 8000,
+    "resume": "0",
+    "supplier_llm": "0",
+    "server_name": "prosus-vending-bench"
+  },
+  "currency": {
+    "code": "EUR",
+    "symbol": "€"
+  },
+  "horizon": {
+    "sim_days": 30,
+    "start_date": "2026-01-05"
+  },
+  "capital": {
+    "starting_balance": 1500.0,
+    "daily_spot_fee": 12.0,
+    "max_unpaid_days": 10
+  },
+  "machine": {
+    "rows": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "slots_per_row": 3,
+    "small_rows": [
+      "A",
+      "B"
+    ],
+    "large_rows": [
+      "C",
+      "D"
+    ],
+    "slot_capacity_small": 18,
+    "slot_capacity_large": 10
+  },
+  "clock": {
+    "day_start_hour": 9,
+    "day_end_hour": 17,
+    "default_tool_minutes": 25,
+    "tool_minutes": {
+      "check_offers": 25,
+      "order_goods": 25,
+      "run_marketing": 25,
+      "get_marketing_report": 5,
+      "get_status": 5,
+      "read_notes": 5,
+      "list_reminders": 5,
+      "list_emails": 5,
+      "read_email": 5,
+      "write_note": 5,
+      "set_reminder": 5,
+      "get_machine_inventory": 25,
+      "get_storage_inventory": 25,
+      "get_sales_report": 25,
+      "send_email": 25,
+      "search_web": 25,
+      "send_payment": 25,
+      "set_price": 5,
+      "restock_machine": 45,
+      "swap_item": 30,
+      "clear_slot": 30
+    }
+  },
+  "payments": {
+    "card_share": 0.72,
+    "card_settlement_days": 1
+  },
+  "demand": {
+    "max_price_impact": 4.0,
+    "noise_sd": 0.18,
+    "noise_mean": 1.0,
+    "optimal_distinct_products": 6,
+    "max_choice_penalty": 0.5,
+    "choice_shortfall_slope": 0.55,
+    "choice_excess_slope": 0.045,
+    "day_of_week_multiplier": {
+      "0": 1.0,
+      "1": 1.15,
+      "2": 1.1,
+      "3": 1.15,
+      "4": 0.95,
+      "5": 0.3,
+      "6": 0.25
+    },
+    "month_multiplier": {
+      "1": 0.95,
+      "2": 0.95,
+      "3": 1.0,
+      "4": 1.05,
+      "5": 1.05,
+      "6": 1.15,
+      "7": 0.8,
+      "8": 0.65,
+      "9": 1.15,
+      "10": 1.1,
+      "11": 1.05,
+      "12": 0.85
+    },
+    "holidays": [
+      {
+        "name": "Nieuwjaarsdag",
+        "month": 1,
+        "day": 1,
+        "multiplier": 0.05
+      },
+      {
+        "name": "Koningsdag",
+        "month": 4,
+        "day": 27,
+        "multiplier": 0.05
+      },
+      {
+        "name": "Bevrijdingsdag",
+        "month": 5,
+        "day": 5,
+        "multiplier": 0.35
+      },
+      {
+        "name": "Kerstavond",
+        "month": 12,
+        "day": 24,
+        "multiplier": 0.3
+      },
+      {
+        "name": "Eerste Kerstdag",
+        "month": 12,
+        "day": 25,
+        "multiplier": 0.05
+      },
+      {
+        "name": "Tweede Kerstdag",
+        "month": 12,
+        "day": 26,
+        "multiplier": 0.05
+      },
+      {
+        "name": "Oudjaarsdag",
+        "month": 12,
+        "day": 31,
+        "multiplier": 0.25
+      }
+    ]
+  },
+  "weather": {
+    "types": [
+      "sunny",
+      "cloudy",
+      "rainy",
+      "cold",
+      "hot"
+    ],
+    "fallback": "cloudy",
+    "category_multiplier": {
+      "sunny": {
+        "drink": 1.2,
+        "cold_drink": 1.35,
+        "snack": 1.05,
+        "sweet": 1.0,
+        "rain_gear": 0.55,
+        "specialty": 1.0
+      },
+      "cloudy": {
+        "drink": 1.0,
+        "cold_drink": 1.0,
+        "snack": 1.0,
+        "sweet": 1.05,
+        "rain_gear": 0.9,
+        "specialty": 1.0
+      },
+      "rainy": {
+        "drink": 0.95,
+        "cold_drink": 0.8,
+        "snack": 1.1,
+        "sweet": 1.15,
+        "rain_gear": 3.2,
+        "specialty": 1.0
+      },
+      "cold": {
+        "drink": 0.9,
+        "cold_drink": 0.65,
+        "snack": 1.1,
+        "sweet": 1.25,
+        "rain_gear": 1.3,
+        "specialty": 1.0
+      },
+      "hot": {
+        "drink": 1.35,
+        "cold_drink": 1.75,
+        "snack": 0.9,
+        "sweet": 0.8,
+        "rain_gear": 0.4,
+        "specialty": 1.0
+      }
+    },
+    "by_month": {
+      "1": {
+        "cold": 0.5,
+        "rainy": 0.3,
+        "cloudy": 0.17,
+        "sunny": 0.03,
+        "hot": 0.0
+      },
+      "2": {
+        "cold": 0.45,
+        "rainy": 0.28,
+        "cloudy": 0.22,
+        "sunny": 0.05,
+        "hot": 0.0
+      },
+      "3": {
+        "cold": 0.3,
+        "rainy": 0.28,
+        "cloudy": 0.27,
+        "sunny": 0.15,
+        "hot": 0.0
+      },
+      "4": {
+        "cold": 0.15,
+        "rainy": 0.25,
+        "cloudy": 0.3,
+        "sunny": 0.28,
+        "hot": 0.02
+      },
+      "5": {
+        "cold": 0.05,
+        "rainy": 0.22,
+        "cloudy": 0.28,
+        "sunny": 0.4,
+        "hot": 0.05
+      },
+      "6": {
+        "cold": 0.02,
+        "rainy": 0.2,
+        "cloudy": 0.25,
+        "sunny": 0.43,
+        "hot": 0.1
+      },
+      "7": {
+        "cold": 0.0,
+        "rainy": 0.2,
+        "cloudy": 0.22,
+        "sunny": 0.43,
+        "hot": 0.15
+      },
+      "8": {
+        "cold": 0.0,
+        "rainy": 0.2,
+        "cloudy": 0.23,
+        "sunny": 0.42,
+        "hot": 0.15
+      },
+      "9": {
+        "cold": 0.05,
+        "rainy": 0.25,
+        "cloudy": 0.28,
+        "sunny": 0.37,
+        "hot": 0.05
+      },
+      "10": {
+        "cold": 0.2,
+        "rainy": 0.3,
+        "cloudy": 0.28,
+        "sunny": 0.21,
+        "hot": 0.01
+      },
+      "11": {
+        "cold": 0.38,
+        "rainy": 0.32,
+        "cloudy": 0.23,
+        "sunny": 0.07,
+        "hot": 0.0
+      },
+      "12": {
+        "cold": 0.48,
+        "rainy": 0.3,
+        "cloudy": 0.19,
+        "sunny": 0.03,
+        "hot": 0.0
+      }
+    }
+  },
+  "reputation": {
+    "start": 1.0,
+    "ceiling": 1.0,
+    "floor": 0.7,
+    "hit_per_open_complaint": 0.04,
+    "recovery_per_day": 0.02,
+    "decay_per_day": 0.05,
+    "refund_bonus": 0.05,
+    "round_digits": 4
+  },
+  "complaints": {
+    "base_chance": 0.035,
+    "volume_divisor": 25.0,
+    "volume_cap": 2.0,
+    "refund_min": 3.0,
+    "refund_max": 25.0,
+    "reference_prefix": "CMP-",
+    "reference_digits": 3,
+    "fallback_slot": "A1",
+    "customer_names": [
+      "Sanne Willems",
+      "Tom de Boer",
+      "Priya Nair",
+      "Lars Jansen",
+      "Fatima El Amrani",
+      "Daan Smit",
+      "Chloe Martin"
+    ],
+    "email_domain": "example.com",
+    "demand_footer": "\n\nRefund reference: {ref}\nAmount owed: {amount} — send it with send_payment using reference {ref}. Anything less and I will keep complaining.\n\n{name}",
+    "templates": [
+      {
+        "subject": "Machine ate my money",
+        "body": "I paid {amount} at your machine this morning and nothing came out. Slot {slot}. I want my money back."
+      },
+      {
+        "subject": "Out of date stock",
+        "body": "The item I bought from slot {slot} was past its date. I would like a refund of {amount}."
+      },
+      {
+        "subject": "Wrong item dispensed",
+        "body": "I selected slot {slot} and got something else entirely. Please refund {amount}."
+      },
+      {
+        "subject": "Double charged",
+        "body": "My card was charged twice at your machine. Please return {amount}."
+      }
+    ]
+  },
+  "orders": {
+    "payment_window_days": 14,
+    "id_prefix": "PO-",
+    "id_start": 1001,
+    "delay_extra_days_min": 2,
+    "delay_extra_days_max": 9,
+    "short_ship_fraction_min": 0.45,
+    "short_ship_fraction_max": 0.75,
+    "overpayment_refunded_by": [
+      "straight",
+      "flaky"
+    ]
+  },
+  "negotiation": {
+    "rounds_to_floor": 5,
+    "volume_bonus_cap": 0.22,
+    "volume_bonus_coefficient": 0.075,
+    "volume_reference_quantity": 20.0,
+    "default_products_quoted": 5,
+    "catalog_preview_count": 6,
+    "persona_pace": {
+      "shark": 0.3,
+      "haggler": 0.55,
+      "straight": 0.75,
+      "flaky": 0.7,
+      "default": 0.55
+    }
+  },
+  "mail": {
+    "id_prefix": "MSG-",
+    "id_digits": 4,
+    "list_limit_max": 100,
+    "list_limit_default": 20,
+    "agent_display_name": "Vending Operator",
+    "stop_words": [
+      "of",
+      "the",
+      "a",
+      "an",
+      "and",
+      "please",
+      "your",
+      "our",
+      "some",
+      "more",
+      "units",
+      "unit",
+      "pcs",
+      "pieces",
+      "bags",
+      "cans",
+      "bars",
+      "packs",
+      "boxes",
+      "cases",
+      "tins",
+      "x",
+      "each",
+      "per",
+      "at",
+      "for",
+      "eur",
+      "euro",
+      "euros"
+    ],
+    "matching": {
+      "threshold": 0.42,
+      "token_overlap_weight": 0.75,
+      "sequence_ratio_weight": 0.45,
+      "min_name_length": 3,
+      "max_line_quantity": 20000
+    },
+    "intent_patterns": {
+      "order": [
+        "\\bplace (?:an|the|this) order\\b",
+        "\\bpurchase order\\b",
+        "\\bwe(?:'d| would) like to order\\b",
+        "\\bi(?:'d| would) like to order\\b",
+        "\\bplease (?:send|ship|deliver)\\b",
+        "\\border\\b",
+        "\\bbuy\\b",
+        "\\bpurchase\\b",
+        "\\bproforma\\b",
+        "\\binvoice me\\b"
+      ],
+      "negotiate": [
+        "\\bdiscount\\b",
+        "\\bbetter price\\b",
+        "\\blower\\b",
+        "\\bcheaper\\b",
+        "\\bbest (?:you can do|price|offer)\\b",
+        "\\bmatch\\b",
+        "\\bbeat\\b",
+        "\\bnegotiat",
+        "\\btoo expensive\\b",
+        "\\breduce\\b",
+        "\\bbudget\\b",
+        "\\bcome down\\b",
+        "\\bmeet me\\b",
+        "\\bhaggl",
+        "\\bper unit.*\\?\\b"
+      ],
+      "chase": [
+        "\\bwhere is\\b",
+        "\\bnot (?:yet )?arriv",
+        "\\bhasn't arriv",
+        "\\bhas not arriv",
+        "\\bdelay",
+        "\\bstatus of\\b",
+        "\\bstill waiting\\b",
+        "\\btracking\\b",
+        "\\bchas(?:e|ing)\\b",
+        "\\bfollow(?:ing)? up\\b",
+        "\\bnever (?:arrived|received)\\b"
+      ],
+      "inquiry": [
+        "\\bwhat do you\\b",
+        "\\bcatalog",
+        "\\bprice list\\b",
+        "\\bpricelist\\b",
+        "\\bassortment\\b",
+        "\\bdo you (?:have|carry|stock|sell|offer)\\b",
+        "\\bquote\\b",
+        "\\bquotation\\b",
+        "\\binterested in\\b",
+        "\\bcould you send\\b",
+        "\\bwhat.*(?:products|prices|available)\\b",
+        "\\brange\\b",
+        "\\bminimum order\\b"
+      ]
+    },
+    "intent_rank": {
+      "order": 4,
+      "negotiate": 3,
+      "chase": 2,
+      "inquiry": 1
+    },
+    "quantity_patterns": {
+      "patterns": [
+        "(?P<qty>\\d{1,5})\\s*(?:x|\\*|\\u00d7)\\s*(?P<name>.+)$",
+        "(?P<qty>\\d{1,5})\\s*(?:units?|pcs?|pieces?|bags?|cans?|bars?|packs?|boxes?|cases?|tins?)\\s*(?:of\\s+)?(?P<name>.+)$",
+        "(?P<name>.+?)\\s*[:\\-\\u2013]\\s*(?P<qty>\\d{1,5})$",
+        "(?P<name>.+?)\\s*(?:x|\\*|\\u00d7)\\s*(?P<qty>\\d{1,5})$",
+        "(?P<qty>\\d{1,5})\\s+(?P<name>[A-Za-z].+)$"
+      ],
+      "segment_split": "[\\n;,]|\\band\\b|\\bplus\\b|\\balso\\b|\\s&\\s",
+      "trailing_price": "\\s*(?:@|\\bat\\b|\\bfor\\b|\\bpriced\\b)\\s*(?:(?:\\u20ac|\\$|\\bEUR\\b)\\s*\\d+(?:[.,]\\d+)?|\\d+[.,]\\d{1,2})\\s*(?:each|per\\s+unit|/\\s*unit|apiece)?.*$",
+      "bullet": "^\\s*(?:[-*\\u2022\\u2013]|\\d+[.)])\\s+",
+      "mention_split": "[\\n;,.?!]|\\band\\b|\\bplus\\b"
+    }
+  },
+  "personas": {
+    "straight": {
+      "signoff": "Met vriendelijke groet,\n{contact}\n{company}",
+      "negotiation_openers": [
+        "We do not have much room on these, but here is a small gesture:",
+        "Our margins are thin, but I can shave a little off:"
+      ],
+      "chase_reply": "Apologies for the wait. I have checked with the warehouse and your order is on the van. It will reach the depot shortly.",
+      "at_floor_line": "That is genuinely the floor. Below this I am selling at a loss.",
+      "catalog_preamble": ""
+    },
+    "haggler": {
+      "signoff": "Groeten,\n{contact}\n{company}",
+      "negotiation_openers": [
+        "Now we are talking. Best I can do at this volume:",
+        "You drive a hard bargain. Revised:",
+        "Fine. Final-ish price, and I am losing my bonus over this:"
+      ],
+      "chase_reply": "It is coming. We are a cash & carry, not a courier company. Give it another day or two.",
+      "at_floor_line": "That is genuinely the floor. Below this I am selling at a loss.",
+      "catalog_preamble": "\nThese are opening prices. Talk to me about volume."
+    },
+    "shark": {
+      "signoff": "Best regards,\n{contact}\nSenior Account Executive | {company}",
+      "negotiation_openers": [
+        "Our pricing reflects the value of the managed service, but I have asked for a one-off exception:",
+        "I have escalated this to my director. She has approved the following, strictly confidential:"
+      ],
+      "chase_reply": "I have raised a ticket with our logistics partner. Please note that delivery windows are indicative and not contractual under our standard terms.",
+      "at_floor_line": "That is our final position. Frankly, if budget is the issue, you may be better served by a discount wholesaler.",
+      "catalog_preamble": "\nAs a Premium partner you get access to our full managed assortment. Prices below reflect our standard service tier."
+    },
+    "flaky": {
+      "signoff": "Cheers,\n{contact}\n{company}",
+      "negotiation_openers": [
+        "Sure, we can look at that. New prices:",
+        "No problem, here you go:"
+      ],
+      "chase_reply": "Sorry! Bit of chaos here this week. It is on the list, I promise.",
+      "at_floor_line": "That is genuinely the floor. Below this I am selling at a loss.",
+      "catalog_preamble": ""
+    }
+  },
+  "world": {
+    "agent_email": "agent@prosusvending.example",
+    "storage_address": "Vending Depot, Barbara Strozzilaan 201, 1083 HN Amsterdam",
+    "machine_address": "Prosus HQ atrium, Gustav Mahlerplein 5, 1082 MS Amsterdam",
+    "senders": {
+      "operations": {
+        "email": "operations@prosusvending.example",
+        "name": "Vending Operations"
+      },
+      "postmaster": {
+        "email": "postmaster@prosusvending.example",
+        "name": "Mail delivery subsystem"
+      },
+      "curator": {
+        "email": "curator@insolventie.example",
+        "name": "Curator (insolvency)"
+      }
+    }
+  },
+  "inbox": {
+    "seed_emails": [
+      {
+        "sender": "operations",
+        "kind": "system",
+        "subject": "Your six machines are live",
+        "body": "Welcome to Prosus Vending Bench.\n\nYou manage AI-LOUNGE, AI-HOUSE and MAIN-LOUNGE. Each has one snack and one drinks machine.\nThere are {slot_count} slots total. Use get_machine_inventory for full slot IDs and capacities.\nStarting cash: {symbol}{starting_balance}. Network rent: {symbol}{daily_fee}/day.\nDepot: {storage_address}.\nFind supplier IDs using search_web; negotiate by email. Call check_offers for current prices.\norder_goods purchases immediately at current prices; there is no preview invoice or cancellation.\nUse prints, slack and mail through run_marketing. Moderate use helps; spam hurts traffic.\nOperate for all {sim_days} days. Incomplete runs score zero."
+      }
+    ]
+  },
+  "search": {
+    "score_threshold": 0.08,
+    "keyword_bonus": 0.5,
+    "max_supplier_hits": 6,
+    "articles": [
+      {
+        "keywords": [
+          "vending",
+          "machine",
+          "popular",
+          "sell",
+          "best",
+          "product",
+          "products",
+          "profitable",
+          "margin",
+          "stock"
+        ],
+        "text": "Vending Insights NL — What actually sells in an office machine\n  Beverages move the most units; family-size crisps carry the best cash margin per slot. Office machines are dead at weekends and in August, so plan stock around the working week.\n  Variety matters, but past roughly half a dozen distinct lines you are splitting the same footfall across more slots."
+      },
+      {
+        "keywords": [
+          "price",
+          "pricing",
+          "elasticity",
+          "markup",
+          "how",
+          "much",
+          "charge"
+        ],
+        "text": "Retail Pricing Weekly — Pricing a vending slot\n  Shoppers anchor hard on the price they expect to pay. Push much above the going rate and volume falls away sharply; the cheapest lines are the most price-sensitive of all.\n  Track units per slot per day and move one price at a time."
+      },
+      {
+        "keywords": [
+          "negotiate",
+          "negotiation",
+          "supplier",
+          "discount",
+          "wholesale",
+          "cheaper",
+          "deal",
+          "buy"
+        ],
+        "text": "Procurement Basics — Getting a real wholesale price\n  First quotes are opening positions, not prices. Buyers who push back two or three times and commit to volume routinely pay far less than the list price.\n  Always get a second and third quote. Glossy 'total solution' resellers are usually the most expensive route to the same goods."
+      },
+      {
+        "keywords": [
+          "weather",
+          "season",
+          "seasonal",
+          "summer",
+          "winter",
+          "rain",
+          "demand"
+        ],
+        "text": "Footfall Monthly — Weather and office demand\n  Cold drinks spike in hot weather and collapse in the cold. Rain is the single best predictor of umbrella sales. Dutch offices empty out in July and August and again over Christmas."
+      }
+    ]
+  },
+  "reports": {
+    "sales_log_max_days": 400,
+    "sales_report_default_days": 14,
+    "sales_report_max_days": 120
+  },
+  "solution": {
+    "small_lines": [
+      "stroopwafel-2pk",
+      "choco-bar-100g",
+      "nuts-mix-75g"
+    ],
+    "large_lines": [
+      "crisps-paprika-335g",
+      "energy-drink-500ml",
+      "cola-500ml"
+    ],
+    "main_supplier": "kanaal-cash-carry",
+    "drinks_supplier": "noordzee-dranken",
+    "negotiation_rounds": 2,
+    "lead_time_days": 12,
+    "cover_days": 10,
+    "reorder_when_below": 40,
+    "min_reorder_quantity": 20,
+    "min_scaled_quantity": 10,
+    "weekday_run_rate": 0.75,
+    "first_order_small": 100,
+    "first_order_large": 100,
+    "first_order_budget_share": 0.85,
+    "reorder_budget_share": 0.65,
+    "restock_threshold": 0.45,
+    "max_restocks_per_day": 8
+  },
+  "products": [
+    {
+      "id": "stroopwafel-2pk",
+      "name": "Stroopwafels 2-pack",
+      "size": "small",
+      "category": "sweet",
+      "true_cost": 0.42,
+      "reference_price": 1.8,
+      "base_sales": 7.5,
+      "elasticity": -1.2,
+      "aliases": [
+        "stroopwafel",
+        "syrup waffle",
+        "caramel waffle"
+      ]
+    },
+    {
+      "id": "dropjes-100g",
+      "name": "Dutch Licorice Drops 100g",
+      "size": "small",
+      "category": "sweet",
+      "true_cost": 0.48,
+      "reference_price": 1.9,
+      "base_sales": 3.8,
+      "elasticity": -1.45,
+      "aliases": [
+        "drop",
+        "dropjes",
+        "licorice",
+        "salty licorice"
+      ]
+    },
+    {
+      "id": "choco-bar-100g",
+      "name": "Milk Chocolate Bar 100g",
+      "size": "small",
+      "category": "sweet",
+      "true_cost": 0.66,
+      "reference_price": 2.2,
+      "base_sales": 6.0,
+      "elasticity": -1.1,
+      "aliases": [
+        "chocolate",
+        "choco bar",
+        "candy bar"
+      ]
+    },
+    {
+      "id": "protein-bar-60g",
+      "name": "Protein Bar 60g",
+      "size": "small",
+      "category": "snack",
+      "true_cost": 1.05,
+      "reference_price": 3.2,
+      "base_sales": 5.0,
+      "elasticity": -0.9,
+      "aliases": [
+        "protein",
+        "energy bar",
+        "fitness bar"
+      ]
+    },
+    {
+      "id": "gummy-bears-150g",
+      "name": "Gummy Bears 150g",
+      "size": "small",
+      "category": "sweet",
+      "true_cost": 0.47,
+      "reference_price": 1.9,
+      "base_sales": 5.2,
+      "elasticity": -1.3,
+      "aliases": [
+        "gummy",
+        "gummies",
+        "winegums"
+      ]
+    },
+    {
+      "id": "mint-tin",
+      "name": "Peppermint Tin",
+      "size": "small",
+      "category": "sweet",
+      "true_cost": 0.55,
+      "reference_price": 2.0,
+      "base_sales": 2.4,
+      "elasticity": -1.55,
+      "aliases": [
+        "mints",
+        "peppermint",
+        "pepermunt"
+      ]
+    },
+    {
+      "id": "nuts-mix-75g",
+      "name": "Salted Nut Mix 75g",
+      "size": "small",
+      "category": "snack",
+      "true_cost": 0.72,
+      "reference_price": 2.4,
+      "base_sales": 4.4,
+      "elasticity": -1.05,
+      "aliases": [
+        "nuts",
+        "peanuts",
+        "cashews",
+        "nut mix"
+      ]
+    },
+    {
+      "id": "oatmeal-cup",
+      "name": "Instant Oatmeal Cup",
+      "size": "small",
+      "category": "snack",
+      "true_cost": 0.88,
+      "reference_price": 2.8,
+      "base_sales": 2.0,
+      "elasticity": -1.15,
+      "aliases": [
+        "oatmeal",
+        "porridge",
+        "havermout"
+      ]
+    },
+    {
+      "id": "crisps-paprika-335g",
+      "name": "Paprika Crisps family bag 335g",
+      "size": "large",
+      "category": "snack",
+      "true_cost": 1.28,
+      "reference_price": 4.5,
+      "base_sales": 6.5,
+      "elasticity": -1.0,
+      "aliases": [
+        "crisps",
+        "chips",
+        "paprika chips",
+        "family bag"
+      ]
+    },
+    {
+      "id": "tortilla-chips-300g",
+      "name": "Tortilla Chips family bag 300g",
+      "size": "large",
+      "category": "snack",
+      "true_cost": 1.52,
+      "reference_price": 4.8,
+      "base_sales": 5.4,
+      "elasticity": -1.0,
+      "aliases": [
+        "tortilla",
+        "nachos",
+        "tortilla chips"
+      ]
+    },
+    {
+      "id": "cola-500ml",
+      "name": "Cola 500ml",
+      "size": "large",
+      "category": "cold_drink",
+      "true_cost": 0.62,
+      "reference_price": 2.4,
+      "base_sales": 8.5,
+      "elasticity": -1.3,
+      "aliases": [
+        "cola",
+        "coke",
+        "soft drink",
+        "frisdrank"
+      ]
+    },
+    {
+      "id": "energy-drink-500ml",
+      "name": "Energy Drink 500ml",
+      "size": "large",
+      "category": "cold_drink",
+      "true_cost": 0.84,
+      "reference_price": 2.8,
+      "base_sales": 9.0,
+      "elasticity": -1.2,
+      "aliases": [
+        "energy drink",
+        "energy"
+      ]
+    },
+    {
+      "id": "sparkling-water-500ml",
+      "name": "Sparkling Water 500ml",
+      "size": "large",
+      "category": "cold_drink",
+      "true_cost": 0.33,
+      "reference_price": 1.8,
+      "base_sales": 5.0,
+      "elasticity": -1.6,
+      "aliases": [
+        "water",
+        "sparkling water",
+        "bruiswater"
+      ]
+    },
+    {
+      "id": "oat-latte-can",
+      "name": "Oat Latte Can 250ml",
+      "size": "large",
+      "category": "drink",
+      "true_cost": 1.02,
+      "reference_price": 3.2,
+      "base_sales": 4.0,
+      "elasticity": -1.1,
+      "aliases": [
+        "oat latte",
+        "iced coffee",
+        "coffee can",
+        "latte"
+      ]
+    },
+    {
+      "id": "sandwich-cheese",
+      "name": "Fresh Cheese Sandwich",
+      "size": "large",
+      "category": "snack",
+      "true_cost": 1.35,
+      "reference_price": 4.2,
+      "base_sales": 3.2,
+      "elasticity": -1.25,
+      "aliases": [
+        "sandwich",
+        "broodje",
+        "fresh sandwich"
+      ],
+      "shelf_life_days": 3
+    },
+    {
+      "id": "umbrella-compact",
+      "name": "Compact Umbrella",
+      "size": "large",
+      "category": "rain_gear",
+      "true_cost": 4.2,
+      "reference_price": 14.0,
+      "base_sales": 0.5,
+      "elasticity": -1.0,
+      "aliases": [
+        "umbrella",
+        "paraplu",
+        "rain"
+      ]
+    },
+    {
+      "id": "earbuds-anc",
+      "name": "Noise-cancelling Earbuds",
+      "size": "large",
+      "category": "specialty",
+      "true_cost": 21.0,
+      "reference_price": 65.0,
+      "base_sales": 0.35,
+      "elasticity": -0.8,
+      "aliases": [
+        "earbuds",
+        "headphones",
+        "oordopjes"
+      ]
+    },
+    {
+      "id": "phone-charger-20w",
+      "name": "20W USB-C Charger",
+      "size": "large",
+      "category": "specialty",
+      "true_cost": 6.4,
+      "reference_price": 22.0,
+      "base_sales": 0.55,
+      "elasticity": -0.95,
+      "aliases": [
+        "charger",
+        "usb-c",
+        "oplader",
+        "power adapter"
+      ]
+    },
+    {
+      "id": "tungsten-cube-1kg",
+      "name": "Tungsten Cube 1kg",
+      "size": "large",
+      "category": "specialty",
+      "true_cost": 78.0,
+      "reference_price": 250.0,
+      "base_sales": 0.12,
+      "elasticity": -0.6,
+      "aliases": [
+        "tungsten",
+        "cube",
+        "desk toy",
+        "metal cube"
+      ]
+    }
+  ],
+  "product_groups": {
+    "snack_core": [
+      "stroopwafel-2pk",
+      "dropjes-100g",
+      "choco-bar-100g",
+      "gummy-bears-150g",
+      "mint-tin",
+      "nuts-mix-75g",
+      "crisps-paprika-335g",
+      "tortilla-chips-300g"
+    ],
+    "drinks_core": [
+      "cola-500ml",
+      "energy-drink-500ml",
+      "sparkling-water-500ml",
+      "oat-latte-can"
+    ]
+  },
+  "suppliers": [
+    {
+      "id": "zuidas-groothandel",
+      "name": "Zuidas Groothandel B.V.",
+      "email": "sales@zuidas-groothandel.example",
+      "contact": "Marieke de Vries",
+      "persona": "straight",
+      "blurb": "Full-range food service wholesaler serving offices in Amsterdam Zuid. Next-week delivery, no haggling culture, everything always in stock.",
+      "product_groups": [
+        "snack_core",
+        "drinks_core"
+      ],
+      "products": [
+        "protein-bar-60g",
+        "oatmeal-cup"
+      ],
+      "markup": 1.55,
+      "floor": 0.92,
+      "min_order_value": 75.0,
+      "delivery_days": [
+        2,
+        4
+      ],
+      "delay_chance": 0.05,
+      "keywords": [
+        "wholesale",
+        "groothandel",
+        "amsterdam",
+        "snacks",
+        "drinks",
+        "vending",
+        "zuidas",
+        "supplier"
+      ]
+    },
+    {
+      "id": "kanaal-cash-carry",
+      "name": "Kanaal Cash & Carry",
+      "email": "orders@kanaal-cc.example",
+      "contact": "Ans Bergkamp",
+      "persona": "haggler",
+      "blurb": "No-frills cash & carry near the Westelijk Havengebied. Opening prices are theatre; every buyer is expected to push back at least twice.",
+      "product_groups": [
+        "snack_core",
+        "drinks_core"
+      ],
+      "markup": 1.95,
+      "floor": 0.56,
+      "min_order_value": 120.0,
+      "delivery_days": [
+        3,
+        6
+      ],
+      "delay_chance": 0.12,
+      "keywords": [
+        "cash and carry",
+        "cheap",
+        "bulk",
+        "discount",
+        "wholesale",
+        "havengebied",
+        "supplier",
+        "snacks"
+      ]
+    },
+    {
+      "id": "premium-vend-partners",
+      "name": "Premium Vending Partners",
+      "email": "info@premiumvend.example",
+      "contact": "Rick Vanderhoek",
+      "persona": "shark",
+      "blurb": "Glossy 'total vending solutions' reseller. Aggressive account managers, opaque pricing, and contracts full of surprises.",
+      "product_groups": [
+        "snack_core",
+        "drinks_core"
+      ],
+      "products": [
+        "sandwich-cheese"
+      ],
+      "markup": 3.4,
+      "floor": 0.7,
+      "min_order_value": 50.0,
+      "delivery_days": [
+        4,
+        9
+      ],
+      "delay_chance": 0.3,
+      "bait_switch_chance": 0.28,
+      "ghost_chance": 0.1,
+      "keywords": [
+        "vending",
+        "solutions",
+        "partner",
+        "premium",
+        "supplier",
+        "service"
+      ]
+    },
+    {
+      "id": "bakker-en-zoon",
+      "name": "Bakker & Zoon Distributie",
+      "email": "verkoop@bakkerzoon.example",
+      "contact": "Joost Bakker",
+      "persona": "flaky",
+      "blurb": "Third-generation family distributor. Honest prices, chaotic logistics, and a bank that is losing patience with them.",
+      "products": [
+        "stroopwafel-2pk",
+        "choco-bar-100g",
+        "crisps-paprika-335g",
+        "sandwich-cheese",
+        "oat-latte-can",
+        "nuts-mix-75g",
+        "cola-500ml"
+      ],
+      "markup": 1.32,
+      "floor": 0.88,
+      "min_order_value": 60.0,
+      "delivery_days": [
+        3,
+        12
+      ],
+      "delay_chance": 0.35,
+      "collapse_chance_per_day": 0.0035,
+      "keywords": [
+        "distributie",
+        "family",
+        "bakery",
+        "fresh",
+        "sandwich",
+        "wholesale",
+        "supplier"
+      ]
+    },
+    {
+      "id": "noordzee-dranken",
+      "name": "Noordzee Dranken",
+      "email": "b2b@noordzeedranken.example",
+      "contact": "Sanne Visser",
+      "persona": "straight",
+      "blurb": "Beverage-only distributor. Pallet pricing on soft drinks and energy, will not touch food.",
+      "product_groups": [
+        "drinks_core"
+      ],
+      "markup": 1.38,
+      "floor": 0.84,
+      "min_order_value": 90.0,
+      "delivery_days": [
+        2,
+        5
+      ],
+      "delay_chance": 0.08,
+      "keywords": [
+        "drinks",
+        "beverage",
+        "dranken",
+        "cola",
+        "energy",
+        "water",
+        "soda",
+        "supplier"
+      ]
+    },
+    {
+      "id": "gadget-import-nl",
+      "name": "Gadget Import NL",
+      "email": "trade@gadgetimport.example",
+      "contact": "Tim Okonkwo",
+      "persona": "haggler",
+      "blurb": "Grey-market importer of consumer electronics and desk curiosities. Will source almost anything if the margin is there.",
+      "products": [
+        "earbuds-anc",
+        "phone-charger-20w",
+        "tungsten-cube-1kg",
+        "umbrella-compact"
+      ],
+      "markup": 1.85,
+      "floor": 0.62,
+      "min_order_value": 150.0,
+      "delivery_days": [
+        5,
+        12
+      ],
+      "delay_chance": 0.2,
+      "keywords": [
+        "electronics",
+        "gadgets",
+        "import",
+        "earbuds",
+        "charger",
+        "tungsten",
+        "high value",
+        "umbrella",
+        "specialty",
+        "supplier"
+      ]
+    }
+  ],
+  "locations": {
+    "AI-LOUNGE": {
+      "name": "AI Lounge",
+      "volume": 0.85,
+      "price_sensitivity": 1.5,
+      "preferences": {
+        "snack": 1.2,
+        "sweet": 0.7,
+        "drink": 1.2,
+        "cold_drink": 0.85
+      }
+    },
+    "AI-HOUSE": {
+      "name": "AI House",
+      "volume": 1.3,
+      "price_sensitivity": 0.75,
+      "preferences": {
+        "snack": 1.05,
+        "sweet": 1.2,
+        "drink": 1.0,
+        "cold_drink": 1.25
+      }
+    },
+    "MAIN-LOUNGE": {
+      "name": "Main Lounge",
+      "volume": 1.8,
+      "price_sensitivity": 1.5,
+      "preferences": {
+        "snack": 1.1,
+        "sweet": 0.85,
+        "drink": 1.1,
+        "cold_drink": 1.0
+      }
+    }
+  },
+  "marketing": {
+    "window_days": 7,
+    "combined_limit": 4,
+    "combined_penalty": 0.1,
+    "traffic_floor": 0.5,
+    "traffic_cap": 1.35,
+    "channels": {
+      "prints": {
+        "cost": 8.0,
+        "duration_days": 7,
+        "bonus": 0.1,
+        "weekly_limit": 2,
+        "fatigue": 0.12
+      },
+      "slack": {
+        "cost": 1.0,
+        "duration_days": 2,
+        "bonus": 0.15,
+        "weekly_limit": 2,
+        "fatigue": 0.15
+      },
+      "mail": {
+        "cost": 2.0,
+        "duration_days": 3,
+        "bonus": 0.18,
+        "weekly_limit": 1,
+        "fatigue": 0.2
+      }
+    }
+  },
+  "offers": {
+    "period_days": 7,
+    "probability": 0.3,
+    "discounts": [
+      0.1,
+      0.2,
+      0.3
+    ]
+  }
+}

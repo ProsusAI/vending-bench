@@ -1,0 +1,1458 @@
+[
+  {
+    "id": "gen-1795370534-8Itli1lvqssbORVA4FmT",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 2976,
+      "completion_tokens": 94,
+      "total_tokens": 3070,
+      "cost": 0.006892,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.006892,
+        "upstream_inference_prompt_cost": 0.005952,
+        "upstream_inference_completions_cost": 0.00094
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370537-Wp3MDXjVGEbwifzvKuhx",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 5903,
+      "completion_tokens": 179,
+      "total_tokens": 6082,
+      "cost": 0.013596,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.013596,
+        "upstream_inference_prompt_cost": 0.011806,
+        "upstream_inference_completions_cost": 0.00179
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370542-TDIkfUutVn60eRRVHIHg",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 7718,
+      "completion_tokens": 83,
+      "total_tokens": 7801,
+      "cost": 0.0060801,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 5361,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0060801,
+        "upstream_inference_prompt_cost": 0.0052501,
+        "upstream_inference_completions_cost": 0.00083
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370545-Gg46wiw7IrWdXQdrRtHH",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 9035,
+      "completion_tokens": 250,
+      "total_tokens": 9285,
+      "cost": 0.0097989,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 5669,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0097989,
+        "upstream_inference_prompt_cost": 0.0072989,
+        "upstream_inference_completions_cost": 0.0025
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370562-pMInQdgsAiiVGt2tWIVl",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 9833,
+      "completion_tokens": 566,
+      "total_tokens": 10399,
+      "cost": 0.0120526,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 6986,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0120526,
+        "upstream_inference_prompt_cost": 0.0063926,
+        "upstream_inference_completions_cost": 0.00566
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370584-nkQrI4jJK0lXehDtWCxu",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 10872,
+      "completion_tokens": 48,
+      "total_tokens": 10920,
+      "cost": 0.0074344,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 7784,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0074344,
+        "upstream_inference_prompt_cost": 0.0069544,
+        "upstream_inference_completions_cost": 0.00048
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370587-FVieyV270nRFVtKGisSz",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 11484,
+      "completion_tokens": 104,
+      "total_tokens": 11588,
+      "cost": 0.0072443,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 8823,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0072443,
+        "upstream_inference_prompt_cost": 0.0062043,
+        "upstream_inference_completions_cost": 0.00104
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370605-9LrXtW1WQ2RqT3bFkeEZ",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 12396,
+      "completion_tokens": 509,
+      "total_tokens": 12905,
+      "cost": 0.0119555,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 9435,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0119555,
+        "upstream_inference_prompt_cost": 0.0068655,
+        "upstream_inference_completions_cost": 0.00509
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370617-irvgBiRGN9VL5pwQaPPU",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 13807,
+      "completion_tokens": 495,
+      "total_tokens": 14302,
+      "cost": 0.0105449,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 11589,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0105449,
+        "upstream_inference_prompt_cost": 0.0055949,
+        "upstream_inference_completions_cost": 0.00495
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370628-eVM1zWrbULGewr6QzYkK",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 14542,
+      "completion_tokens": 749,
+      "total_tokens": 15291,
+      "cost": 0.0142338,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 11758,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0142338,
+        "upstream_inference_prompt_cost": 0.0067438,
+        "upstream_inference_completions_cost": 0.00749
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370643-Cj4VawijC7BZviTlahPn",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 16960,
+      "completion_tokens": 36,
+      "total_tokens": 16996,
+      "cost": 0.0066483,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 14543,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0066483,
+        "upstream_inference_prompt_cost": 0.0062883,
+        "upstream_inference_completions_cost": 0.00036
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370651-qXuCf0jiP8wuPjtb9LJw",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 14573,
+      "completion_tokens": 665,
+      "total_tokens": 15238,
+      "cost": 0.0301739,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0301739,
+        "upstream_inference_prompt_cost": 0.0235239,
+        "upstream_inference_completions_cost": 0.00665
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370669-hU8qt6HoViuNHegjZQ7Y",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 15775,
+      "completion_tokens": 74,
+      "total_tokens": 15849,
+      "cost": 0.0266679,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0266679,
+        "upstream_inference_prompt_cost": 0.0259279,
+        "upstream_inference_completions_cost": 0.00074
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370672-J8oayWbXCMh3oIuLZL5g",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 17087,
+      "completion_tokens": 917,
+      "total_tokens": 18004,
+      "cost": 0.0377219,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0377219,
+        "upstream_inference_prompt_cost": 0.0285519,
+        "upstream_inference_completions_cost": 0.00917
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370686-b2GMOXHfOMXDl65kV5mv",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 18390,
+      "completion_tokens": 871,
+      "total_tokens": 19261,
+      "cost": 0.0398679,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0398679,
+        "upstream_inference_prompt_cost": 0.0311579,
+        "upstream_inference_completions_cost": 0.00871
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370701-ioNfzK2Hw5ibPIqhafRq",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 17671,
+      "completion_tokens": 50,
+      "total_tokens": 17721,
+      "cost": 0.0302199,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0302199,
+        "upstream_inference_prompt_cost": 0.0297199,
+        "upstream_inference_completions_cost": 0.0005
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370704-LSA1sXho2rKsl9QDr8vY",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 16716,
+      "completion_tokens": 669,
+      "total_tokens": 17385,
+      "cost": 0.0344999,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0344999,
+        "upstream_inference_prompt_cost": 0.0278099,
+        "upstream_inference_completions_cost": 0.00669
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370715-Z1ic23NAQAkLnwA1Z8gX",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 16913,
+      "completion_tokens": 184,
+      "total_tokens": 17097,
+      "cost": 0.035666,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.035666,
+        "upstream_inference_prompt_cost": 0.033826,
+        "upstream_inference_completions_cost": 0.00184
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370721-TpyknxHX9Y6LWdrxCPPZ",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 16677,
+      "completion_tokens": 604,
+      "total_tokens": 17281,
+      "cost": 0.0337719,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0337719,
+        "upstream_inference_prompt_cost": 0.0277319,
+        "upstream_inference_completions_cost": 0.00604
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370730-nfpo2JvSuHqOFAii3tTz",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 18774,
+      "completion_tokens": 75,
+      "total_tokens": 18849,
+      "cost": 0.0066098,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 16678,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0066098,
+        "upstream_inference_prompt_cost": 0.0058598,
+        "upstream_inference_completions_cost": 0.00075
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370734-AU6N8YS6pQevcJbafqFq",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 16841,
+      "completion_tokens": 319,
+      "total_tokens": 17160,
+      "cost": 0.0312499,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0312499,
+        "upstream_inference_prompt_cost": 0.0280599,
+        "upstream_inference_completions_cost": 0.00319
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370742-TZk9KXpz3s507UkwLfe0",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 17936,
+      "completion_tokens": 81,
+      "total_tokens": 18017,
+      "cost": 0.0085772,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 14792,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0085772,
+        "upstream_inference_prompt_cost": 0.0077672,
+        "upstream_inference_completions_cost": 0.00081
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370747-qfP9sLq8QQBDsWNv7PzN",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 18249,
+      "completion_tokens": 615,
+      "total_tokens": 18864,
+      "cost": 0.0370259,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0370259,
+        "upstream_inference_prompt_cost": 0.0308759,
+        "upstream_inference_completions_cost": 0.00615
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370757-pWLI7HE8aPbUpKPeV31o",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 17341,
+      "completion_tokens": 32,
+      "total_tokens": 17373,
+      "cost": 0.0293799,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0293799,
+        "upstream_inference_prompt_cost": 0.0290599,
+        "upstream_inference_completions_cost": 0.00032
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370766-fZC5RBBnBtd0bNm59GgM",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 16428,
+      "completion_tokens": 777,
+      "total_tokens": 17205,
+      "cost": 0.0350039,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0350039,
+        "upstream_inference_prompt_cost": 0.0272339,
+        "upstream_inference_completions_cost": 0.00777
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370778-yYnM8lFdHjKmULwHwULc",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 18995,
+      "completion_tokens": 32,
+      "total_tokens": 19027,
+      "cost": 0.0070949,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 16429,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0070949,
+        "upstream_inference_prompt_cost": 0.0067749,
+        "upstream_inference_completions_cost": 0.00032
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370782-e2YJG8eMjQRGstFl3BLM",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 19491,
+      "completion_tokens": 847,
+      "total_tokens": 20338,
+      "cost": 0.0418299,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0418299,
+        "upstream_inference_prompt_cost": 0.0333599,
+        "upstream_inference_completions_cost": 0.00847
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370796-OK5CsBCKSGz9Ioc1LHmx",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 19254,
+      "completion_tokens": 75,
+      "total_tokens": 19329,
+      "cost": 0.0336359,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0336359,
+        "upstream_inference_prompt_cost": 0.0328859,
+        "upstream_inference_completions_cost": 0.00075
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370802-LN05UBmRiiwM1j0dk5Ar",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 18596,
+      "completion_tokens": 69,
+      "total_tokens": 18665,
+      "cost": 0.0322599,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0322599,
+        "upstream_inference_prompt_cost": 0.0315699,
+        "upstream_inference_completions_cost": 0.00069
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370806-qKSJhzGUQDwwQe4rpgXh",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 18756,
+      "completion_tokens": 167,
+      "total_tokens": 18923,
+      "cost": 0.0335599,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0335599,
+        "upstream_inference_prompt_cost": 0.0318899,
+        "upstream_inference_completions_cost": 0.00167
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370812-E7Z6k9kspyKHuoMriwHC",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 17978,
+      "completion_tokens": 181,
+      "total_tokens": 18159,
+      "cost": 0.0321439,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0321439,
+        "upstream_inference_prompt_cost": 0.0303339,
+        "upstream_inference_completions_cost": 0.00181
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370818-vJZtd1QEAdjG9qcqTZs2",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 18960,
+      "completion_tokens": 955,
+      "total_tokens": 19915,
+      "cost": 0.0172049,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 15929,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0172049,
+        "upstream_inference_prompt_cost": 0.0076549,
+        "upstream_inference_completions_cost": 0.00955
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370833-4ymOX8OZDNQbpNajWoPS",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 19516,
+      "completion_tokens": 32,
+      "total_tokens": 19548,
+      "cost": 0.0337299,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0337299,
+        "upstream_inference_prompt_cost": 0.0334099,
+        "upstream_inference_completions_cost": 0.00032
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370836-NyrFEKEYjVjTatiVtp8K",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 19685,
+      "completion_tokens": 32,
+      "total_tokens": 19717,
+      "cost": 0.0340679,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0340679,
+        "upstream_inference_prompt_cost": 0.0337479,
+        "upstream_inference_completions_cost": 0.00032
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370841-bvo9drRcz48jVD8lFGTM",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 19750,
+      "completion_tokens": 97,
+      "total_tokens": 19847,
+      "cost": 0.0348479,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0348479,
+        "upstream_inference_prompt_cost": 0.0338779,
+        "upstream_inference_completions_cost": 0.00097
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370845-Di2feqKrCPbrTkxb3HEc",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 18093,
+      "completion_tokens": 1059,
+      "total_tokens": 19152,
+      "cost": 0.0411539,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0411539,
+        "upstream_inference_prompt_cost": 0.0305639,
+        "upstream_inference_completions_cost": 0.01059
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370860-nTXr808OCBPB2EgP2gT0",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 17726,
+      "completion_tokens": 62,
+      "total_tokens": 17788,
+      "cost": 0.0304499,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0304499,
+        "upstream_inference_prompt_cost": 0.0298299,
+        "upstream_inference_completions_cost": 0.00062
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370904-6Uf0NCGhHMk1LZBAVkuP",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 19946,
+      "completion_tokens": 1255,
+      "total_tokens": 21201,
+      "cost": 0.0468199,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0468199,
+        "upstream_inference_prompt_cost": 0.0342699,
+        "upstream_inference_completions_cost": 0.01255
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370922-yb2Es9SDQy7ovSYn4URF",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 19512,
+      "completion_tokens": 32,
+      "total_tokens": 19544,
+      "cost": 0.0337219,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0337219,
+        "upstream_inference_prompt_cost": 0.0334019,
+        "upstream_inference_completions_cost": 0.00032
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370935-ErIksqxZqaKK4ipBSS3D",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 19472,
+      "completion_tokens": 1076,
+      "total_tokens": 20548,
+      "cost": 0.0440819,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0440819,
+        "upstream_inference_prompt_cost": 0.0333219,
+        "upstream_inference_completions_cost": 0.01076
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370952-ESKCuR1JTAGWp2N3LxRl",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 20025,
+      "completion_tokens": 50,
+      "total_tokens": 20075,
+      "cost": 0.0349279,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0349279,
+        "upstream_inference_prompt_cost": 0.0344279,
+        "upstream_inference_completions_cost": 0.0005
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370963-eKm0nHb2gjDOylohrRRl",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 19126,
+      "completion_tokens": 29,
+      "total_tokens": 19155,
+      "cost": 0.0329199,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0329199,
+        "upstream_inference_prompt_cost": 0.0326299,
+        "upstream_inference_completions_cost": 0.00029
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370968-DKQgM9Ga2gsBKK3tZFoX",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 19332,
+      "completion_tokens": 854,
+      "total_tokens": 20186,
+      "cost": 0.0147577,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 17077,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0147577,
+        "upstream_inference_prompt_cost": 0.0062177,
+        "upstream_inference_completions_cost": 0.00854
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795370983-yvErnUqzZks6UwdXAW7Q",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 18511,
+      "completion_tokens": 32,
+      "total_tokens": 18543,
+      "cost": 0.0317199,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0317199,
+        "upstream_inference_prompt_cost": 0.0313999,
+        "upstream_inference_completions_cost": 0.00032
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795371007-EJrRZLHFiNm3WKaxPE3D",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 17502,
+      "completion_tokens": 1375,
+      "total_tokens": 18877,
+      "cost": 0.0431319,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0431319,
+        "upstream_inference_prompt_cost": 0.0293819,
+        "upstream_inference_completions_cost": 0.01375
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795371027-CnbpSD9konRFUQtdfyi9",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 18896,
+      "completion_tokens": 50,
+      "total_tokens": 18946,
+      "cost": 0.0326699,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0326699,
+        "upstream_inference_prompt_cost": 0.0321699,
+        "upstream_inference_completions_cost": 0.0005
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795371042-GvLCFlQRAVoNPOFWpRVM",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 18846,
+      "completion_tokens": 29,
+      "total_tokens": 18875,
+      "cost": 0.0323599,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0323599,
+        "upstream_inference_prompt_cost": 0.0320699,
+        "upstream_inference_completions_cost": 0.00029
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795371045-j4MfDi9QgEh6xwJXmHAo",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 19032,
+      "completion_tokens": 1303,
+      "total_tokens": 20335,
+      "cost": 0.0191797,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 16797,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0191797,
+        "upstream_inference_prompt_cost": 0.0061497,
+        "upstream_inference_completions_cost": 0.01303
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795371065-T3L9QYhKF3ExirrWAbUh",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 19688,
+      "completion_tokens": 32,
+      "total_tokens": 19720,
+      "cost": 0.0340739,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0340739,
+        "upstream_inference_prompt_cost": 0.0337539,
+        "upstream_inference_completions_cost": 0.00032
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795371085-VotK8tXwiOq6ib2wvmKr",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 19619,
+      "completion_tokens": 655,
+      "total_tokens": 20274,
+      "cost": 0.0401659,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0401659,
+        "upstream_inference_prompt_cost": 0.0336159,
+        "upstream_inference_completions_cost": 0.00655
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795371110-fcOYVgnjVaa9ncfH6eRF",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 18915,
+      "completion_tokens": 36,
+      "total_tokens": 18951,
+      "cost": 0.0325679,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0325679,
+        "upstream_inference_prompt_cost": 0.0322079,
+        "upstream_inference_completions_cost": 0.00036
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "gen-1795371117-BoNbe8rGpzKGVWQc07yx",
+    "model": "google/gemini-4-argon",
+    "provider": "Google",
+    "usage": {
+      "prompt_tokens": 17514,
+      "completion_tokens": 67,
+      "total_tokens": 17581,
+      "cost": 0.0300759,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2959,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0300759,
+        "upstream_inference_prompt_cost": 0.0294059,
+        "upstream_inference_completions_cost": 0.00067
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+]

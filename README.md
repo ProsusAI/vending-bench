@@ -142,10 +142,10 @@ Current **v3 scripted reference**, five seeds per horizon:
 Published model runs include costs, outcomes, and trajectories so you can
 investigate how a result happened.
 
-> **Compare like with like.** The published model baselines used the older v2
-> economy; they are historical results, not a current v3 leaderboard. Keep
-> economy versions, horizons, harnesses, and tool permissions separate.
-> One seed is an exploratory snapshot, not a robust model ranking.
+> **Compare like with like.** The published model baseline is five models on
+> one seed of the v3 economy. Keep economy versions, horizons, harnesses, and
+> tool permissions separate. One seed is an exploratory snapshot, not a robust
+> model ranking.
 
 [Inspect published results](results/baselines/README.md) ·
 [Scoring and integrity](docs/benchmark-guide.md#scoring-and-integrity) ·

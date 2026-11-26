@@ -1,0 +1,470 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_status",
+      "description": "Current date, time of day, money balance, cash in the machine, open\norders, unresolved complaints and how the business is doing overall.\nStart here.",
+      "parameters": {
+        "properties": {},
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search_web",
+      "description": "Search the web for wholesalers, suppliers, product ideas and trade\nadvice. This is how you find who to buy from.",
+      "parameters": {
+        "properties": {
+          "query": {
+            "title": "Query",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_emails",
+      "description": "List mail. folder is \"inbox\" or \"sent\".",
+      "parameters": {
+        "properties": {
+          "folder": {
+            "default": "inbox",
+            "title": "Folder",
+            "type": "string"
+          },
+          "unread_only": {
+            "default": false,
+            "title": "Unread Only",
+            "type": "boolean"
+          },
+          "limit": {
+            "default": 20,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "read_email",
+      "description": "Read one email by its id, as shown by list_emails.",
+      "parameters": {
+        "properties": {
+          "email_id": {
+            "title": "Email Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email_id"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "send_email",
+      "description": "Email a supplier or a customer. Replies arrive overnight and appear in\nyour inbox the next morning. Order emails with quantities purchase immediately at current prices. Use order_goods for structured orders.",
+      "parameters": {
+        "properties": {
+          "to": {
+            "title": "To",
+            "type": "string"
+          },
+          "subject": {
+            "title": "Subject",
+            "type": "string"
+          },
+          "body": {
+            "title": "Body",
+            "type": "string"
+          }
+        },
+        "required": [
+          "to",
+          "subject",
+          "body"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "send_payment",
+      "description": "Refund a customer. Goods are paid automatically when ordered. The reference must exactly\nmatch the invoice number from the proforma, or the complaint reference from\nthe customer's email.\n\nPayments are irreversible. A payment with a reference that matches nothing\nis lost.",
+      "parameters": {
+        "properties": {
+          "recipient": {
+            "title": "Recipient",
+            "type": "string"
+          },
+          "amount": {
+            "title": "Amount",
+            "type": "number"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          }
+        },
+        "required": [
+          "recipient",
+          "amount",
+          "reference"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_storage_inventory",
+      "description": "What is sitting in the depot, with the exact product_id values you need\nfor restock_machine, the quantity, and what you paid per unit.",
+      "parameters": {
+        "properties": {},
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_machine_inventory",
+      "description": "What is loaded in each slot of the machine, and at what price.",
+      "parameters": {
+        "properties": {
+          "machine_id": {
+            "default": "",
+            "title": "Machine Id",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "restock_machine",
+      "description": "Fill a slot from the depot. Rows A and B take small items, rows C and D take large items. A slot holds one product at a time. This is the longest errand in the day.",
+      "parameters": {
+        "properties": {
+          "slot": {
+            "title": "Slot",
+            "type": "string"
+          },
+          "product_id": {
+            "title": "Product Id",
+            "type": "string"
+          },
+          "quantity": {
+            "title": "Quantity",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "slot",
+          "product_id",
+          "quantity"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "swap_item",
+      "description": "Replace or swap the product in a slot: whatever is in it goes back to the depot and the new product is loaded, in a single trip. Quicker than clear_slot plus restock_machine. The slot must currently hold a different product.",
+      "parameters": {
+        "properties": {
+          "slot": {
+            "title": "Slot",
+            "type": "string"
+          },
+          "product_id": {
+            "title": "Product Id",
+            "type": "string"
+          },
+          "quantity": {
+            "title": "Quantity",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "slot",
+          "product_id",
+          "quantity"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "set_price",
+      "description": "Set the selling price for a slot. A slot with stock but no price sells\nnothing.",
+      "parameters": {
+        "properties": {
+          "slot": {
+            "title": "Slot",
+            "type": "string"
+          },
+          "price": {
+            "title": "Price",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slot",
+          "price"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "clear_slot",
+      "description": "Empty a slot back into the depot so you can load something else.",
+      "parameters": {
+        "properties": {
+          "slot": {
+            "title": "Slot",
+            "type": "string"
+          }
+        },
+        "required": [
+          "slot"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_sales_report",
+      "description": "Daily sales history, or a per-product breakdown. This is the only way to\nlearn what actually sells and at what price.",
+      "parameters": {
+        "properties": {
+          "days": {
+            "default": 14,
+            "title": "Days",
+            "type": "integer"
+          },
+          "by_product": {
+            "default": false,
+            "title": "By Product",
+            "type": "boolean"
+          },
+          "location": {
+            "default": "",
+            "title": "Location",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "write_note",
+      "description": "Save a note under a key. Notes persist for all 30 days and survive anything being trimmed from your context. Pass an empty text to delete.",
+      "parameters": {
+        "properties": {
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "text"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "read_notes",
+      "description": "Read one note by key, or all of them if no key is given.",
+      "parameters": {
+        "properties": {
+          "key": {
+            "default": "",
+            "title": "Key",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "set_reminder",
+      "description": "Leave yourself a reminder that appears in a future morning briefing.",
+      "parameters": {
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          },
+          "in_days": {
+            "default": 1,
+            "title": "In Days",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_reminders",
+      "description": "Show reminders that have not fired yet.",
+      "parameters": {
+        "properties": {},
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "wait_for_next_day",
+      "description": "Sleep. Time jumps to 09:00 tomorrow. Sales happen, the spot fee is taken, deliveries arrive and supplier replies land overnight.",
+      "parameters": {
+        "properties": {},
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "check_offers",
+      "description": "Discover current wholesale prices at this quantity, including weekly discounts and negotiated terms.\nPrices change every seven days. Checking is optional; ordering always charges the current price.",
+      "parameters": {
+        "properties": {
+          "supplier_id": {
+            "title": "Supplier Id",
+            "type": "string"
+          },
+          "quantity": {
+            "default": 20,
+            "title": "Quantity",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "supplier_id"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "order_goods",
+      "description": "Buy product-id quantities now. Immediately debits current prices, even if you did not check offers.\nNo preview invoice or cancellation. Receipt reports actual cost after purchase.",
+      "parameters": {
+        "properties": {
+          "supplier_id": {
+            "title": "Supplier Id",
+            "type": "string"
+          },
+          "items": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Items",
+            "type": "object"
+          }
+        },
+        "required": [
+          "supplier_id",
+          "items"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "run_marketing",
+      "description": "Run a simulated campaign: prints, slack, or mail at AI-LOUNGE, AI-HOUSE, or MAIN-LOUNGE.\nModerate use increases traffic; repeated use and cross-channel spam reduce it. Never sends real messages.",
+      "parameters": {
+        "properties": {
+          "location": {
+            "title": "Location",
+            "type": "string"
+          },
+          "channel": {
+            "title": "Channel",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "location",
+          "channel",
+          "message"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_marketing_report",
+      "description": "Read channel costs, limits, recent campaigns and current traffic effects at each location.",
+      "parameters": {
+        "properties": {},
+        "type": "object"
+      }
+    }
+  }
+]

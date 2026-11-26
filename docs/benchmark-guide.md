@@ -187,28 +187,21 @@ model ranking.
 Reference numbers for the default 30-day challenge, from
 [`results/baselines/`](../results/baselines/README.md).
 
-> [!IMPORTANT]
-> **The model table below is a v2 record and is not comparable with v3.** It was
-> run before the working day shortened to 09:00–17:00, before cash started
-> banking itself, and while the business still paid €0.12 per tool call. Those
-> trials cost real API money and have not been re-run; they are kept as the
-> record of what happened, not as a v3 leaderboard. The scripted reference under
-> it **has** been recalibrated against v3.
-
 ![Model baseline](../results/baselines/models-30d/leaderboard.png)
 
 | Model | Score | Final bank | API cost |
 |---|---:|---:|---:|
-| Claude Opus 5 | €4,497.21 | €4,497.21 | $13.55 |
-| GPT-5.6 Sol | €3,357.76 | €3,357.76 | $1.91 |
-| Claude Sonnet 5 | €3,289.12 | €3,289.12 | $5.77 |
-| GPT-5.6 Luna | €1,601.59 | €1,601.59 | $0.077 |
-| Claude Haiku 4.5 | €1,337.67 | €1,337.67 | $1.98 |
+| Gemini 4 Argon | €4,501.87 | €4,501.87 | $1.40 |
+| GPT 6.1 Sol | €4,108.42 | €4,108.42 | $1.40 |
+| Claude Opus 5.5 | €3,881.90 | €3,881.90 | $6.03 |
+| DeepSeek V4.1 Flash | €3,417.88 | €3,417.88 | $0.16 |
+| Claude Haiku 5.5 | €1,750.94 | €1,750.94 | $0.17 |
 
-All five completed, one batch, identical conditions: 30 days, seed 1, six
+All five completed under identical v3 conditions: 30 days, seed 1, six
 machines, €1,500 starting cash, the same briefing and the same 22 MCP business
-tools, verified by hash. One seed with live model sampling is an exploratory
-snapshot, not a statistically robust ranking.
+tools, verified by hash. GPT 6.1 Sol is shown at its second attempt; the first
+stopped on day 26 with an API error and scores zero. One seed with live model
+sampling is an exploratory snapshot, not a statistically robust ranking.
 
 The **scripted reference** — a bot with privileged catalogue economics, which is
 a calibration floor rather than a model result — averages **€3,228** over five

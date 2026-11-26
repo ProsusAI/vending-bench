@@ -6,14 +6,14 @@ ranking.
 
 | Baseline | What it is | Horizon | Benchmark version |
 |---|---|---|---|
-| [`models-30d/`](models-30d/README.md) | Five frontier models through the MCP-only runner, one batch, identical conditions | 30 days | **v2 — superseded** |
+| [`models-30d/`](models-30d/README.md) | Five models through the MCP-only runner, seed 1, identical conditions | 30 days | v3 |
 | [`scripted-reference/`](scripted-reference/README.md) | The scripted operator, five seeds, both horizons | 30 and 365 days | v3 |
 
 **Never compare across benchmark versions either.** v3 shortened the day to
 09:00–17:00, replaced the cash boxes with overnight banking, made filling a
 machine a 45-minute errand, added a 30-minute `swap_item`, and stopped charging
-the business for tool calls. The model batch predates all of that and has not
-been re-run; it is kept as a record, not as a current leaderboard.
+the business for tool calls. The model baseline was re-run on v3 on 22 November
+2026; scores from the earlier v2 batch are not comparable with it.
 
 **Never compare across horizons.** A 30-day balance and a 365-day balance
 measure different things. Keep them in separate tables.
@@ -41,9 +41,9 @@ python3 scripts/run_baselines.py
 uv run --with fastmcp==2.11.3 --with httpx --with python-dotenv \
   python scripts/run_openrouter.py --env-file /path/to/.env \
   --days 30 --seeds 1 --total-budget 0 --timeout 0 --max-turns 0 \
-  --models anthropic/claude-opus-5 openai/gpt-5.6-sol \
-           anthropic/claude-sonnet-5 openai/gpt-5.6-luna \
-           anthropic/claude-haiku-4.5 \
+  --models google/gemini-4-argon openai/gpt-6.1-sol \
+           anthropic/claude-opus-5.5 deepseek/deepseek-v4.1-flash-1017 \
+           anthropic/claude-haiku-5.5 \
   --output results/my-baseline
 
 uv run --with matplotlib python scripts/build_leaderboard.py \
