@@ -220,8 +220,10 @@ def draw(out, completed, unfinished, days, starting, reference=None):
                          'pdf.fonttype': 42, 'axes.unicode_minus': False})
     bg, ink, muted, grid = '#F7F8F4', '#193630', '#5D6B65', '#DCE3DC'
     bar = '#246858'
-    step = 1500
     peak = max([r['final_balance'] for r in completed] + [starting, reference or 0])
+    # Widen the grid step with the scale, so a 365-day chart keeps a readable axis.
+    steps = (1500, 3000, 5000, 7500, 10000, 15000, 20000, 25000, 50000, 100000)
+    step = next((s for s in steps if peak < 5 * s), steps[-1])
     top = (int(peak // step) + 1) * step
     n = max(len(completed), 1)
 
