@@ -7,6 +7,7 @@ ranking.
 | Baseline | What it is | Horizon | Benchmark version |
 |---|---|---|---|
 | [`models-30d/`](models-30d/README.md) | Five models through the MCP-only runner, seed 1, identical conditions | 30 days | v3 |
+| [`models-365d/`](models-365d/README.md) | The same five models over a year, seed 1, identical conditions | 365 days | v3 |
 | [`scripted-reference/`](scripted-reference/README.md) | The scripted operator, five seeds, both horizons | 30 and 365 days | v3 |
 
 **Never compare across benchmark versions either.** v3 shortened the day to

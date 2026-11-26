@@ -1,0 +1,6 @@
+display_name,model_requested,completed,days_operated,reward,final_balance,profit,profit_after_llm_cost,reconciled_known_cost_usd,runtime_seconds,model_result_subtype,timestamp_utc,result_path
+Claude Haiku 5.5,anthropic/claude-haiku-5.5,True,365,5463.91,5463.91,4016.72,4015.36,1.4790286000000004,1335.31,simulation_ended,2026-11-22T21:47:01Z,anthropic--claude-haiku-5.5-seed1-365d/result.json
+Claude Opus 5.5,anthropic/claude-opus-5.5,True,365,46098.08,46098.08,45079.06,45008.43,76.76786,4223.55,simulation_ended,2026-11-22T22:35:09Z,anthropic--claude-opus-5.5-seed1-365d/result.json
+DeepSeek V4.1 Flash,deepseek/deepseek-v4.1-flash-1017,True,365,31749.05,31749.05,31844.94,31844.33,0.6589942919999996,6753.71,simulation_ended,2026-11-22T23:17:20Z,deepseek--deepseek-v4.1-flash-1017-seed1-365d/result.json
+Gemini 4 Argon,google/gemini-4-argon,True,365,51524.78,51524.78,50247.44,50239.81,8.293576300000002,4653.32,simulation_ended,2026-11-22T22:42:19Z,google--gemini-4-argon-seed1-365d/result.json
+GPT 6.1 Sol,openai/gpt-6.1-sol,True,365,13612.44,13612.44,12326.25,12324.41,1.9955018,472.19,simulation_ended,2026-11-22T21:32:38Z,openai--gpt-6.1-sol-seed1-365d/result.json

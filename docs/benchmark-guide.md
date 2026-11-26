@@ -203,6 +203,10 @@ tools, verified by hash. GPT 6.1 Sol is shown at its second attempt; the first
 stopped on day 26 with an API error and scores zero. One seed with live model
 sampling is an exploratory snapshot, not a statistically robust ranking.
 
+The same five models over 365 days, seed 1, are in
+[`results/baselines/models-365d/`](../results/baselines/models-365d/README.md).
+Keep the two horizons in separate tables.
+
 The **scripted reference** — a bot with privileged catalogue economics, which is
 a calibration floor rather than a model result — averages **€3,228** over five
 seeds at 30 days and **€61,219** over five seeds at 365 days, all ten completed.
