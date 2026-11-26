@@ -1,0 +1,15 @@
+{
+  "harness": "OpenRouter chat completions + in-process FastMCP client",
+  "tools": "Only the 22 MCP business tools; no source, shell or verifier access",
+  "model_requested": "deepseek/deepseek-v4.1-flash-1017",
+  "budget_usd": 150.0,
+  "timeout_seconds": null,
+  "max_turns": null,
+  "max_output_tokens": 4096,
+  "context_chars": 60000,
+  "memory_policy": "Conversation history uses a rolling window of complete tool exchanges. Older exchanges may disappear. Use write_note and read_notes to retain your own business plans and discoveries. Continue using the business tools until the simulation ends. You may request multiple tools per response; they execute sequentially in the order you give them.",
+  "reasoning": "low when supported; otherwise provider default",
+  "routing": "No model fallback; provider fallback allowed within catalog price ceilings",
+  "tool_order": "Sequential, including batches",
+  "temperature": "provider default"
+}

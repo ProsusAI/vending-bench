@@ -2,7 +2,7 @@
 
 | Directory | Contents |
 |---|---|
-| [`baselines/`](baselines/README.md) | Reference scores: five models over 30 days on seed 1 (v3), and the scripted operator over both horizons |
+| [`baselines/`](baselines/README.md) | Reference scores: five models over 30 and 365 days on seed 1 (v3), and the scripted operator over both horizons |
 | [`validation/`](validation/README.md) | Integration checks that the Harbor task and the in-process reference agree to the cent |
 | [`two-agent-seed1/`](two-agent-seed1/README.md) | Five operators alone and with a worker, 30 and 365 days, seed 1, every attempt listed (v3) |
 
