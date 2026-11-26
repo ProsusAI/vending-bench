@@ -24,6 +24,13 @@ OpenRouter runner, where the agent has exactly the 22 business tools and nothing
 else. A Harbor run with broader tool permissions, or a Claude CLI run, is a
 different experiment.
 
+## Related: the two-agent study
+
+[`../two-agent-seed1/`](../two-agent-seed1/README.md) runs the same five models
+as an operator with a worker agent, next to these single-agent runs. It uses a
+different harness (`scripts/run_team.py`), so it is a study, not a baseline.
+Do not put its scores in one table with these.
+
 ## The scripted reference is not a model result
 
 The scripted operator reads catalogue economics straight from the simulator: it
