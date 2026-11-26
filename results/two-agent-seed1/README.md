@@ -4,6 +4,13 @@ Five operator models ran the business alone and with a worker, over 30 and 365
 simulated days, on seed 1. Each operator is compared with itself. This is an
 exploratory study on one seed, not a model ranking.
 
+The five operators were picked by hand for this study. They are not a ranking
+of the strongest models.
+
+The "alone" runs are also published as the model baselines, with their
+conversations and trajectories: [30 days](../baselines/models-30d/README.md)
+and [365 days](../baselines/models-365d/README.md).
+
 - **Alone:** [`scripts/run_openrouter.py`](../../scripts/run_openrouter.py). One model gets the 22 business tools.
 - **With a worker:** [`scripts/run_team.py`](../../scripts/run_team.py). The operator gets the 22 business tools
   minus the four machine tools (`restock_machine`, `swap_item`, `clear_slot`,
@@ -156,10 +163,16 @@ Each batch folder keeps the summary files of its run:
   stopped trial), `harness.json`, `tools.json`, `instruction.md` and, for the
   two-agent runs, `worker-instruction.md`.
 
-Not included, to keep the repository small: the conversations, raw responses,
-generation IDs, configuration dumps, simulator trajectories and the source
-archive. Together they are about 168 MB. They are kept outside the repository
-and are available on request.
+Not included here, to keep the repository small: the conversations, raw
+responses, generation IDs, configuration dumps, simulator trajectories and the
+source archive.
+
+- For the completed single-agent batches (`single-agent/30d`, `30d-gpt-rerun`
+  and `365d`) they are published under
+  [`../baselines/models-30d/`](../baselines/models-30d/README.md) and
+  [`../baselines/models-365d/`](../baselines/models-365d/README.md).
+- For the two-agent runs and the stopped batches they are kept outside the
+  repository, about 110 MB, and are available on request.
 
 ## Reproduce
 
