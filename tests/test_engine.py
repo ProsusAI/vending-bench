@@ -313,6 +313,52 @@ def test_a_full_email_order_and_delivery_cycle(engine):
     assert engine.s["storage"]["crisps-paprika-335g"]["quantity"] > 0
 
 
+def _buy_without_delivery(engine, supplier_id="kanaal-cash-carry"):
+    supplier = SUPPLIERS[supplier_id]
+    pid = supplier.product_ids[0]
+    paid = engine._purchase(supplier_id, {pid: 400})
+    assert "error" not in paid, paid
+    return paid
+
+
+def test_a_paid_order_on_its_way_counts_towards_net_worth(engine):
+    """Paying for goods moves money from the balance into an order. Net worth
+    should not drop by the price of goods that are still coming."""
+    before = engine.net_worth()
+    paid = _buy_without_delivery(engine)
+    assert engine.s["balance"] == pytest.approx(config.STARTING_BALANCE - paid["paid"])
+    assert engine.paid_orders_in_transit() == pytest.approx(paid["paid"])
+    assert engine.net_worth() == pytest.approx(before)
+    score = engine.score()
+    assert score["paid_orders_in_transit"] == pytest.approx(paid["paid"])
+    assert score["profit"] == pytest.approx(score["net_worth"] - config.STARTING_BALANCE)
+
+
+def test_a_delivered_order_is_counted_once(engine):
+    _buy_without_delivery(engine)
+    order = next(iter(engine.s["orders"].values()))
+    engine.s["day"] = order["delivery_day"]
+    engine._process_deliveries(engine.s["day"])
+    assert order["status"] == "delivered"
+    assert engine.paid_orders_in_transit() == 0
+    in_storage = sum(b["quantity"] * b["unit_cost"]
+                     for e in engine.s["storage"].values() for b in e["batches"])
+    # Short shipments are not credited, so storage can hold less than was paid for.
+    assert 0 < in_storage <= order["total"] + 0.01
+    assert engine.net_worth() == pytest.approx(engine.s["balance"] + in_storage)
+
+
+def test_quoted_orders_and_orders_from_a_defunct_supplier_do_not_count(engine):
+    supplier = SUPPLIERS["kanaal-cash-carry"]
+    line = mailroom.OrderLine(supplier.product_ids[0], 10, 1.0)
+    engine._create_order(supplier, [line], 10.0)
+    assert engine.paid_orders_in_transit() == 0, "an unpaid quote is not an asset"
+    _buy_without_delivery(engine)
+    assert engine.paid_orders_in_transit() > 0
+    engine.s["defunct_suppliers"].append(supplier.id)
+    assert engine.paid_orders_in_transit() == 0, "those goods are never coming"
+
+
 def test_the_reference_solution_beats_its_starting_capital():
     """The environment must be genuinely winnable through the tools alone."""
     e = Engine.new(seed=3)

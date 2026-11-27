@@ -379,6 +379,7 @@ class Engine:
         return {"benchmark": "Prosus Vending Bench", "version": "3.0.0",
                 "final_balance": _round(self.s["balance"]), "reward": max(0., _round(self.s["balance"])) if completed else 0.,
                 "completed": completed, "net_worth": self.net_worth(),
+                "paid_orders_in_transit": self.paid_orders_in_transit(),
                 "profit": _round(self.net_worth() - config.STARTING_BALANCE),
                 **{k: self.s[k] for k in ("seed", "finished", "terminated", "termination_reason",
                     "units_sold", "gross_revenue", "fees_paid", "tool_calls", "reputation", "marketing_spend")},
@@ -481,10 +482,26 @@ class Engine:
             "has landed in your balance."
         ]
 
+    def paid_orders_in_transit(self) -> float:
+        """Goods that are paid for and not yet delivered, at purchase cost.
+
+        Orders from a supplier that has gone out of business are left out,
+        because those goods are never coming.
+        """
+        return _round(sum(
+            line["quantity"] * line["unit_price"]
+            for order in self.s["orders"].values()
+            if order["status"] in ("paid", "shipped")
+            and order["supplier_id"] not in self.s["defunct_suppliers"]
+            for line in order["lines"]
+        ))
+
     def net_worth(self) -> float:
-        """Balance plus card money in transit plus inventory at purchase cost."""
+        """Balance plus card money in transit plus inventory at purchase cost,
+        including goods that are paid for and still on their way."""
         total = self.s["balance"]
         total += sum(e["amount"] for e in self.s["pending_card"])
+        total += self.paid_orders_in_transit()
         for entry in self.s["storage"].values():
             for batch in entry["batches"]:
                 total += batch["quantity"] * batch["unit_cost"]
@@ -842,7 +859,7 @@ class Engine:
             reason,
             f"Days operated: {self.s['day']}",
             f"Final money balance: {sym}{self.s['balance']:,.2f}",
-            f"Net worth (balance + card in transit + stock at cost): {sym}{self.net_worth():,.2f}",
+            f"Net worth (balance + card in transit + stock and paid orders at cost): {sym}{self.net_worth():,.2f}",
             f"Units sold: {self.s['units_sold']}",
         ])
 
