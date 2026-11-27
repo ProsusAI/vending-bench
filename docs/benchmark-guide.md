@@ -301,7 +301,10 @@ consecutive rent payments terminates a run. Outstanding card receipts settle at
 the horizon; stock does not count.
 
 Survival means the business turns a profit, so every result carries `profit`
-(net worth minus the €1,500 it started with) next to the reward. What the model
+(net worth minus the €1,500 it started with) next to the reward. Net worth is
+the bank balance plus card money still settling, plus stock in the depot and
+machines and paid orders still on their way, all at purchase cost. Orders from a
+supplier that has gone out of business are not counted. What the model
 itself cost to run is **not** part of the score. The runner measures real LLM
 spend anyway and reports `profit_after_llm_cost` beside it — the same run with
 the API bill deducted, at a fixed euro/dollar rate recorded in each result. It
