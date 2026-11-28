@@ -60,6 +60,19 @@ max_unpaid_days = 10           # terminated after MORE than this many in a row
 # carries both a business figure and a figure after LLM cost.
 
 
+# --- Scoring -----------------------------------------------------------------
+[scoring]
+# What the reward counts, for a completed run.
+#   "balance"    the final bank balance. Stock does not count. This is the
+#                published leaderboard.
+#   "net_worth"  the final bank balance plus unsold stock and paid orders still
+#                in transit, at purchase cost. Perishable stock counts for
+#                nothing, since it spoils within days and may never sell. Ending
+#                a run with empty shelves earns nothing extra.
+# The briefing tells the agent which one applies. Never rank the two together.
+reward = "balance"
+
+
 # --- The machine -------------------------------------------------------------
 # Four rows of three slots. Rows A and B take small items, rows C and D take
 # large items, as in the original paper.

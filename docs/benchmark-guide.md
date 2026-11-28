@@ -310,6 +310,29 @@ spend anyway and reports `profit_after_llm_cost` beside it — the same run with
 the API bill deducted, at a fixed euro/dollar rate recorded in each result. It
 is there because it is interesting, not because it is ranked.
 
+### Optional: count stock in the reward
+
+Because stock does not count, the best move near the end of a run is to stop
+buying (see [#11](https://github.com/ProsusAI/vending-bench/issues/11)), so a
+30-day score partly measures how well an agent winds the business down. Setting
+`[scoring] reward = "net_worth"` scores a completed run on its bank balance plus
+unsold stock and paid orders in transit at purchase cost. Perishable stock
+counts for nothing, since it spoils within days and may never sell.
+The briefing states whichever rule applies.
+
+```bash
+python3 scripts/local_run.py --seed 1 --config \
+  tasks/vending-bench/environment/sim-server/variants/stock-counts.toml
+python3 scripts/prepare_task.py --reward net_worth --output /tmp/prosus-vending-nw
+```
+
+Package it with `prepare_task.py` rather than switching it with `VENDING_SET`
+alone: as with the horizon, the shipped briefing would then still tell the agent
+that stock does not count.
+
+The default stays the bank balance, and the published results use it. Scores
+under the two rules are different challenges: never rank them together.
+
 There are no live `/state` or `/score` endpoints. The verifier calls
 `POST /verifier/finalize`, which irreversibly seals an unfinished run **before**
 returning its score and trajectory. An agent that calls it early forfeits the
@@ -378,6 +401,7 @@ tasks/vending-bench/            The Harbor task
       vending/config.toml         THE WORLD: every economic value lives here
       vending/engine.py           Simulation, demand, scoring
       variants/full-year.toml   The 365-day overlay
+      variants/stock-counts.toml  Reward counts stock and paid orders at cost
   solution/                     Scripted reference operator and its world.json
   tests/                        Verifier
 scripts/                        Runners, reporting, config sync, task packaging

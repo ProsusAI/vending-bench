@@ -359,6 +359,90 @@ def test_quoted_orders_and_orders_from_a_defunct_supplier_do_not_count(engine):
     assert engine.paid_orders_in_transit() == 0, "those goods are never coming"
 
 
+STOCK_COUNTS = ROOT / "tasks/vending-bench/environment/sim-server/variants/stock-counts.toml"
+
+
+def _finish(engine):
+    engine.s["finished"] = True
+    return engine.score()
+
+
+def test_the_default_reward_is_still_the_bank_balance(engine):
+    assert config.REWARD_BASIS == "balance"
+    _buy_without_delivery(engine)
+    score = _finish(engine)
+    assert score["reward_basis"] == "balance"
+    assert score["reward"] == pytest.approx(engine.s["balance"])
+
+
+def test_the_stock_counts_variant_scores_stock_and_paid_orders_at_cost():
+    try:
+        config.reload(STOCK_COUNTS, environ={})
+        assert config.REWARD_BASIS == "net_worth"
+        e = Engine.new(seed=99)
+        paid = _buy_without_delivery(e)
+        e.s["machine"]["AI-LOUNGE:DRINKS:C1"] = {
+            "product_id": "cola-500ml", "quantity": 10, "price": 2.40,
+            "unit_cost": 0.60, "loaded_day": 1,
+        }
+        score = _finish(e)
+    finally:
+        config.reload()
+    assert score["reward_basis"] == "net_worth"
+    assert score["reward"] == pytest.approx(e.s["balance"] + paid["paid"] + 6.00)
+    assert score["final_balance"] == pytest.approx(e.s["balance"])
+
+
+def test_perishables_do_not_raise_the_stock_counts_reward():
+    """Sandwiches spoil within days, so stock left at the end may never sell.
+    The reward leaves them out; net worth still reports them at cost."""
+    try:
+        config.reload(STOCK_COUNTS, environ={})
+        e = Engine.new(seed=99)
+        e._add_stock("sandwich-cheese", 40, 1.35)
+        e.s["machine"]["AI-HOUSE:SNACK:C1"] = {
+            "product_id": "sandwich-cheese", "quantity": 5, "price": 4.20,
+            "unit_cost": 1.35, "loaded_day": 1,
+        }
+        score = _finish(e)
+    finally:
+        config.reload()
+    assert score["reward"] == pytest.approx(e.s["balance"])
+    assert score["net_worth"] == pytest.approx(e.s["balance"] + 45 * 1.35), (
+        "net worth still reports perishables at cost"
+    )
+
+
+def test_an_unfinished_run_scores_zero_under_either_reward():
+    try:
+        config.reload(STOCK_COUNTS, environ={})
+        e = Engine.new(seed=99)
+        _buy_without_delivery(e)
+        score = e.score()
+    finally:
+        config.reload()
+    assert score["reward"] == 0.0
+
+
+def test_the_briefing_states_the_reward_that_applies():
+    default = sync_config.render()
+    assert "Inventory is not part of your money score." in default
+    try:
+        config.reload(environ={"VENDING_SET": "scoring.reward=net_worth"})
+        variant = sync_config.render()
+    finally:
+        config.reload()
+    assert "Inventory is not part of your money score." not in variant
+    assert "unsold stock and paid orders" in variant
+    assert "Perishable stock counts for nothing." in variant
+
+
+def test_an_unknown_reward_basis_is_rejected():
+    with pytest.raises(config.ConfigError, match="scoring.reward"):
+        config.reload(environ={"VENDING_SET": "scoring.reward=cash"})
+    config.reload()
+
+
 def test_the_reference_solution_beats_its_starting_capital():
     """The environment must be genuinely winnable through the tools alone."""
     e = Engine.new(seed=3)

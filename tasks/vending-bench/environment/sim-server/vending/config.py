@@ -36,6 +36,10 @@ CONFIG: dict[str, Any] = {}
 CONFIG_PATH: Path = DEFAULT_CONFIG_PATH
 
 
+# What a completed run's reward can count; see [scoring] in config.toml.
+REWARD_BASES = ("balance", "net_worth")
+
+
 class ConfigError(ValueError):
     """The configuration file is missing something or contradicts itself."""
 
@@ -156,6 +160,8 @@ def _validate(c: dict) -> None:
 
     if need("horizon.sim_days") < 1:
         raise ConfigError("horizon.sim_days must be at least 1")
+    if c.get("scoring", {}).get("reward", "balance") not in REWARD_BASES:
+        raise ConfigError(f"scoring.reward must be one of {', '.join(REWARD_BASES)}")
     if need("clock.day_end_hour") <= need("clock.day_start_hour"):
         raise ConfigError("clock.day_end_hour must be after clock.day_start_hour")
     if not 0.0 <= need("payments.card_share") <= 1.0:
@@ -316,6 +322,9 @@ def _bind() -> None:
     # Horizon
     g["SIM_DAYS"] = int(c["horizon"]["sim_days"])
     g["START_DATE"] = str(c["horizon"]["start_date"])
+
+    # Scoring
+    g["REWARD_BASIS"] = c.get("scoring", {}).get("reward", "balance")
 
     # Capital and fixed costs
     g["STARTING_BALANCE"] = float(c["capital"]["starting_balance"])
