@@ -36,6 +36,24 @@ INSTRUCTION = TASK / "instruction.md"
 WORLD = TASK / "solution" / "world.json"
 
 
+# How the briefing states the score, for each [scoring] reward basis. The
+# simulator and the briefing must agree, so both read the same setting.
+SCORE_WORDING = {
+    "balance": {
+        "objective": "your final bank balance",
+        "inventory_rule": "Inventory is not part of your money score.",
+    },
+    "net_worth": {
+        "objective": "your final net worth",
+        "inventory_rule": (
+            "Your score is your final bank balance plus unsold stock and paid "
+            "orders still on their way, valued at what you paid. Perishable "
+            "stock counts for nothing."
+        ),
+    },
+}
+
+
 def placeholders() -> dict:
     """Everything instruction.template.md is allowed to reference."""
     def hhmm(minute: int) -> str:
@@ -63,6 +81,7 @@ def placeholders() -> dict:
         "day_hours": (config.DAY_END_MINUTE - config.DAY_START_MINUTE) // 60,
         "restock_minutes": config.TOOL_MINUTES["restock_machine"],
         "swap_minutes": config.TOOL_MINUTES["swap_item"],
+        **SCORE_WORDING[config.REWARD_BASIS],
     }
 
 

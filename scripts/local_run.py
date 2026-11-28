@@ -75,6 +75,8 @@ def main() -> int:
         print(f"  FINAL BALANCE      {sym}{s['balance']:,.2f}")
         print(f"  net worth          {sym}{engine.net_worth():,.2f}")
         print(f"  PROFIT             {sym}{engine.net_worth() - config.STARTING_BALANCE:,.2f}")
+        if config.REWARD_BASIS != "balance":
+            print(f"  reward ({config.REWARD_BASIS})  {sym}{engine.reward_value():,.2f}")
         if s["termination_reason"]:
             print(f"  ended: {s['termination_reason']}")
     else:

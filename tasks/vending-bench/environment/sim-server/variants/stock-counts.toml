@@ -1,0 +1,14 @@
+# Stock-counts challenge: the same 30-day economy, scored on what the business
+# is worth at the end rather than on the bank balance alone. Unsold stock and
+# paid orders in transit count at purchase cost; perishables count for nothing.
+# Ending the run with empty shelves earns nothing extra. See issue #11.
+#
+#   python3 scripts/local_run.py --seed 1 --config \
+#     tasks/vending-bench/environment/sim-server/variants/stock-counts.toml
+#   python3 scripts/prepare_task.py ...   # to materialize a self-contained task
+#
+# For a year, add VENDING_SIM_DAYS=365. Never rank these scores together with
+# the default challenge.
+extends = "../vending/config.toml"
+[scoring]
+reward = "net_worth"

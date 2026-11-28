@@ -377,8 +377,10 @@ class Engine:
         # run is not charged to it; the runner measures real LLM spend and
         # reports the after-LLM-cost figures alongside these.
         return {"benchmark": "Prosus Vending Bench", "version": "3.0.0",
-                "final_balance": _round(self.s["balance"]), "reward": max(0., _round(self.s["balance"])) if completed else 0.,
+                "final_balance": _round(self.s["balance"]), "reward": max(0., self.reward_value()) if completed else 0.,
+                "reward_basis": config.REWARD_BASIS,
                 "completed": completed, "net_worth": self.net_worth(),
+                "paid_orders_in_transit": self.paid_orders_in_transit(),
                 "profit": _round(self.net_worth() - config.STARTING_BALANCE),
                 **{k: self.s[k] for k in ("seed", "finished", "terminated", "termination_reason",
                     "units_sold", "gross_revenue", "fees_paid", "tool_calls", "reputation", "marketing_spend")},
@@ -481,17 +483,59 @@ class Engine:
             "has landed in your balance."
         ]
 
-    def net_worth(self) -> float:
-        """Balance plus card money in transit plus inventory at purchase cost."""
-        total = self.s["balance"]
-        total += sum(e["amount"] for e in self.s["pending_card"])
-        for entry in self.s["storage"].values():
-            for batch in entry["batches"]:
-                total += batch["quantity"] * batch["unit_cost"]
+    @staticmethod
+    def _counts(product_id: str, perishables: bool) -> bool:
+        product = PRODUCTS.get(product_id)
+        return perishables or not (product and product.shelf_life_days)
+
+    def paid_orders_in_transit(self, perishables: bool = True) -> float:
+        """Goods that are paid for and not yet delivered, at purchase cost.
+
+        Orders from a supplier that has gone out of business are left out,
+        because those goods are never coming.
+        """
+        return _round(sum(
+            line["quantity"] * line["unit_price"]
+            for order in self.s["orders"].values()
+            if order["status"] in ("paid", "shipped")
+            and order["supplier_id"] not in self.s["defunct_suppliers"]
+            for line in order["lines"]
+            if self._counts(line["product_id"], perishables)
+        ))
+
+    def stock_at_cost(self, perishables: bool = True) -> float:
+        """Stock in the depot and the machines at purchase cost."""
+        total = 0.0
+        for pid, entry in self.s["storage"].items():
+            if self._counts(pid, perishables):
+                total += sum(b["quantity"] * b["unit_cost"] for b in entry["batches"])
         for s in self.s["machine"].values():
-            if s.get("product_id") and s.get("quantity"):
+            if s.get("product_id") and s.get("quantity") and self._counts(s["product_id"], perishables):
                 total += s["quantity"] * s.get("unit_cost", 0.0)
         return _round(total)
+
+    def net_worth(self) -> float:
+        """Balance plus card money in transit plus inventory at purchase cost,
+        including goods that are paid for and still on their way."""
+        total = self.s["balance"]
+        total += sum(e["amount"] for e in self.s["pending_card"])
+        total += self.paid_orders_in_transit()
+        total += self.stock_at_cost()
+        return _round(total)
+
+    def reward_value(self) -> float:
+        """What a completed run is scored on, before the floor at zero.
+
+        "balance" is the bank balance alone. "net_worth" adds stock and paid
+        orders at cost but leaves out perishables: they spoil within days, so
+        stock left at the end may never sell.
+        """
+        if config.REWARD_BASIS == "balance":
+            return _round(self.s["balance"])
+        return _round(self.s["balance"]
+                      + sum(e["amount"] for e in self.s["pending_card"])
+                      + self.stock_at_cost(perishables=False)
+                      + self.paid_orders_in_transit(perishables=False))
 
     # --- mail ----------------------------------------------------------------
 
@@ -842,7 +886,7 @@ class Engine:
             reason,
             f"Days operated: {self.s['day']}",
             f"Final money balance: {sym}{self.s['balance']:,.2f}",
-            f"Net worth (balance + card in transit + stock at cost): {sym}{self.net_worth():,.2f}",
+            f"Net worth (balance + card in transit + stock and paid orders at cost): {sym}{self.net_worth():,.2f}",
             f"Units sold: {self.s['units_sold']}",
         ])
 
